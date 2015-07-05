@@ -10,6 +10,7 @@ var coffeelint = require('gulp-coffeelint');
 var autoprefixer = require('gulp-autoprefixer');
 var plumber = require('gulp-plumber');
 var changed = require('gulp-changed');
+var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('coffee', function() {
 	return gulp.src('./dev/coffee/**/*.coffee')
@@ -20,7 +21,9 @@ gulp.task('coffee', function() {
 		.pipe( changed('./dist/js') )
 		.pipe( coffeelint() )
 		.pipe( coffeelint.reporter() )
-		.pipe(coffee({ bare: true }))
+		.pipe( sourcemaps.init() )
+		.pipe( coffee({ bare: true }) )
+		.pipe( sourcemaps.write('.') )
 		.pipe(gulp.dest('./dist/js'));
 });
 
