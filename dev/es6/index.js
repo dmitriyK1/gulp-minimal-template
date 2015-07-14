@@ -1,4 +1,3 @@
-
 const message = 'he1lo world';
 
 let test = function() {
@@ -7,3 +6,6 @@ let test = function() {
 
 test();
 
+let getDate = () => new Date;
+
+console.log( getDate() );
