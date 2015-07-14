@@ -15,7 +15,8 @@ var runSequence = require('run-sequence');
 var clean = require('gulp-clean');
 
 gulp.task('coffee', function() {
-	return gulp.src('./dev/coffee/**/*.coffee')
+	return gulp
+		.src('./dev/coffee/**/*.coffee')
 		.pipe( plumber(function() {
 			console.log('COFFEE TASK FAILED!');
 			this.emit('end');
@@ -30,7 +31,8 @@ gulp.task('coffee', function() {
 });
 
 gulp.task('es6', function() {
-	return gulp.src('./dev/es6/**/*.js')
+	return gulp
+		.src('./dev/es6/**/*.js')
 		.pipe( plumber(function() {
 			console.log('ES6 TASK FAILED!');
 			this.emit('end');
@@ -42,7 +44,8 @@ gulp.task('es6', function() {
 });
 
 gulp.task('js', function() {
-	return gulp.src('./dev/js/**/*.js')
+	return gulp
+		.src('./dev/js/**/*.js')
 		.pipe( plumber(function() {
 			console.log('JS TASK FAILED!');
 			this.emit('end');
@@ -53,7 +56,8 @@ gulp.task('js', function() {
 });
 
 gulp.task('jade', function() {
-	return gulp.src('./dev/jade/**/*.jade')
+	return gulp
+		.src('./dev/jade/**/*.jade')
 		.pipe( plumber(function() {
 			console.log('JADE TASK FAILED!');
 			this.emit('end');
@@ -63,7 +67,8 @@ gulp.task('jade', function() {
 });
 
 gulp.task('stylus', function() {
-	return gulp.src('./dev/stylus/**/*.styl')
+	return gulp
+		.src('./dev/stylus/**/*.styl')
 		.pipe( plumber(function() {
 			console.log('STYLUS TASK FAILED!');
 			this.emit('end');
@@ -74,8 +79,9 @@ gulp.task('stylus', function() {
 });
 
 gulp.task('clean', function() {
-	return gulp.src('./dist').
-		pipe( clean() );
+	return gulp
+		.src('./dist')
+		.pipe( clean() );
 });
 
 gulp.task('build', function() {
