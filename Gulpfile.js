@@ -13,6 +13,7 @@ var changed = require('gulp-changed');
 var sourcemaps = require('gulp-sourcemaps');
 var runSequence = require('run-sequence');
 var clean = require('gulp-clean');
+var csscomb = require('gulp-csscomb');
 
 gulp.task('coffee', function() {
 	return gulp
@@ -75,6 +76,7 @@ gulp.task('stylus', function() {
 		}) )
 		.pipe( stylus() )
 		.pipe( autoprefixer() )
+		.pipe( csscomb() )
 		.pipe( gulp.dest('./dist/css') );
 });
 
@@ -90,7 +92,7 @@ gulp.task('build', function() {
 		, 'es6'
 		, 'jade'
 		, 'stylus'
-		, 'js']	
+		, 'js']
 	);
 });
 
@@ -103,7 +105,8 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', function() {
-	runSequence('build'
+	runSequence(
+		'build'
 		, 'watch'
 	);
 });
