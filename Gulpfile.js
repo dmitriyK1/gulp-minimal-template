@@ -1,3 +1,7 @@
+//
+// TODO: Use gulp-if to conditionally load compression where needed
+//
+
 const gulp         = require('gulp')
 const babel        = require('gulp-babel')
 const gutil        = require('gulp-util')
@@ -16,14 +20,22 @@ const clean        = require('gulp-clean')
 const csscomb      = require('gulp-csscomb')
 const jscs         = require('gulp-jscs')
 const browserSync  = require('browser-sync')
-const stylish      = require('gulp-jscs-stylish');
+const stylish      = require('gulp-jscs-stylish')
+const uglify       = require('gulp-uglify')
+const minify       = require('gulp-htmlmin')
+const minifyInline = require('gulp-minify-inline')
+const prettify     = require('gulp-prettify')
+const mmq          = require('gulp-merge-media-queries')
+const csso         = require('gulp-csso')
+const isProduction = gutil.env.p
+
 
 gulp.task('coffee', () =>
 	gulp
 		.src('./dev/coffee/**/*.coffee')
 		.pipe( plumber(function() {
 			console.log('COFFEE TASK FAILED!')
-			this.emit('end');
+			this.emit('end')
 		}) )
 		.pipe( changed('./dist/js') )
 		.pipe( coffeelint() )
@@ -75,6 +87,16 @@ gulp.task('jade', () =>
 			this.emit('end')
 		}) )
 		.pipe( jade({ pretty: true }) )
+		.pipe( prettify({
+ 			brace_style: 'expand'
+			, indent_size: 1
+			, indent_char: '\t'
+			, indent_with_tabs: true
+			, condense: true
+			, indent_inner_html: true
+			, preserve_newlines: true
+            })
+        )
 		.pipe( gulp.dest('./dist/') )
 )
 
@@ -85,9 +107,10 @@ gulp.task('stylus', () =>
 			console.log('STYLUS TASK FAILED!')
 			this.emit('end')
 		}) )
-		.pipe( stylus() )
-		.pipe( autoprefixer() )
+		.pipe( stylus()
+		)
 		.pipe( csscomb() )
+		.pipe( autoprefixer() )
 		.pipe( gulp.dest('./dist/css') )
 )
 
@@ -103,23 +126,45 @@ gulp.task('browsersync', () =>
     )
 )
 
+gulp.task('compress', () => {
+    if( !isProduction ) return
+
+    gulp
+		.src('dist/js/*.js')
+        .pipe( uglify() )
+        .pipe( gulp.dest('dist/js') )
+
+    gulp
+        .src('dist/*.html')
+        .pipe( minify({ collapseWhitespace: true }) )
+        .pipe( minifyInline() )
+        .pipe( gulp.dest('dist') )
+
+    gulp
+        .src('dist/css/*.css')
+        .pipe( mmq() )
+        .pipe( csso() )
+        .pipe( gulp.dest('dist/css') )
+})
+
 gulp.task('build', () =>
 	runSequence('clean'
 		, ['coffee'
 		, 'es6'
 		, 'jade'
 		, 'stylus'
-		, 'js'
-		, 'browsersync']
+		, 'js']
+		, 'compress'
+		, 'browsersync'
 	)
 )
 
 gulp.task('watch', () => {
-	gulp.watch( ['./dev/coffee/**/*.coffee'], ['coffee'] )
-	gulp.watch( ['./dev/es6/**/*.js'], ['es6'] )
-	gulp.watch( ['./dev/jade/**/*.jade'], ['jade'] )
-	gulp.watch( ['./dev/stylus/**/*.styl'], ['stylus'] )
-	gulp.watch( ['./dev/js/**/*.js'], ['js'] )
+	gulp.watch( ['./dev/coffee/**/*.coffee'], ['coffee', 'compress'] )
+	gulp.watch( ['./dev/es6/**/*.js'], ['es6', 'compress'] )
+	gulp.watch( ['./dev/jade/**/*.jade'], ['jade', 'compress'] )
+	gulp.watch( ['./dev/stylus/**/*.styl'], ['stylus', 'compress'] )
+	gulp.watch( ['./dev/js/**/*.js'], ['js', 'compress'] )
 })
 
 gulp.task('default', () => runSequence( 'build' , 'watch') )
