@@ -3,6 +3,7 @@
 //
 
 const gulp         = require('gulp')
+const sass         = require('gulp-sass')
 const babel        = require('gulp-babel')
 const gutil        = require('gulp-util')
 const coffee       = require('gulp-coffee')
@@ -29,89 +30,99 @@ const mmq          = require('gulp-merge-media-queries')
 const csso         = require('gulp-csso')
 const isProduction = gutil.env.p
 
+gulp.task('sass', () =>
+    gulp
+        .src('./dev/sass/**/*.sass')
+        .pipe( sourcemaps.init() )
+        .pipe( sass({ outputStyle: isProduction ? 'compressed' : undefined }).on('error', sass.logError ) )
+        .pipe( sourcemaps.write('./dist/css') )
+        .pipe( gulp.dest('./dist/css') )
+)
 
 gulp.task('coffee', () =>
-	gulp
-		.src('./dev/coffee/**/*.coffee')
-		.pipe( plumber(function() {
-			console.log('COFFEE TASK FAILED!')
-			this.emit('end')
-		}) )
-		.pipe( changed('./dist/js') )
-		.pipe( coffeelint() )
-		.pipe( coffeelint.reporter() )
-		.pipe( sourcemaps.init() )
-		.pipe( coffee({ bare: true }) )
-		.pipe( jscs({ fix: true }) )
+    gulp
+        .src('./dev/coffee/**/*.coffee')
+        .pipe( plumber(function() {
+            console.log('COFFEE TASK FAILED!')
+            this.emit('end')
+         }) )
+        .pipe( changed('./dist/js') )
+        .pipe( coffeelint() )
+        .pipe( coffeelint.reporter() )
+        .pipe( sourcemaps.init() )
+        .pipe( coffee({ bare: true }) )
+        .pipe( jscs({ fix: true }) )
         .pipe( jshint() )
         .pipe( jshint.reporter() )
         .pipe( stylish.combineWithHintResults() )
-		.pipe( sourcemaps.write('.') )
-		.pipe( gulp.dest('./dist/js') )
+        .pipe( sourcemaps.write('.') )
+        .pipe( gulp.dest('./dist/js') )
 )
 
 gulp.task('es6', () =>
-	gulp
-		.src('./dev/es6/**/*.js')
-		.pipe( plumber(function() {
-			console.log('ES6 TASK FAILED!')
-			this.emit('end')
-		}) )
-		.pipe( babel() )
-		.pipe( jscs({ fix: true }) )
+    gulp
+        .src('./dev/es6/**/*.js')
+        .pipe( plumber(function() {
+            console.log('ES6 TASK FAILED!')
+            this.emit('end')
+         }) )
+        .pipe( babel() )
+        .pipe( jscs({ fix: true }) )
         .pipe( jshint() )
         .pipe( jshint.reporter() )
         .pipe( stylish.combineWithHintResults() )
-		.pipe( gulp.dest('./dist/js') )
+        .pipe( gulp.dest('./dist/js') )
 )
 
 gulp.task('js', () =>
-	gulp
-		.src('./dev/js/**/*.js')
-		.pipe( plumber(function() {
-			console.log('JS TASK FAILED!')
-			this.emit('end')
-		}) )
-		.pipe( jscs({ fix: true }) )
+    gulp
+        .src('./dev/js/**/*.js')
+        .pipe( plumber(function() {
+            console.log('JS TASK FAILED!')
+            this.emit('end')
+         }) )
+        .pipe( jscs({ fix: true }) )
         .pipe( jshint() )
         .pipe( jshint.reporter() )
         .pipe( stylish.combineWithHintResults() )
-		.pipe( gulp.dest('./dist/js') )
+        .pipe( gulp.dest('./dist/js') )
 )
 
 gulp.task('jade', () =>
-	gulp
-		.src('./dev/jade/**/*.jade')
-		.pipe( plumber(function() {
-			console.log('JADE TASK FAILED!')
-			this.emit('end')
-		}) )
-		.pipe( jade({ pretty: true }) )
-		.pipe( prettify({
- 			brace_style: 'expand'
-			, indent_size: 1
-			, indent_char: '\t'
-			, indent_with_tabs: true
-			, condense: true
-			, indent_inner_html: true
-			, preserve_newlines: true
+    gulp
+        .src('./dev/jade/**/*.jade')
+        .pipe( plumber(function() {
+            console.log('JADE TASK FAILED!')
+            this.emit('end')
+         }) )
+        .pipe( jade({ pretty: true }) )
+        .pipe( prettify({
+            brace_style: 'expand'
+            , indent_size: 1
+            , indent_char: '\t'
+            , indent_with_tabs: true
+            , condense: true
+            , indent_inner_html: true
+            , preserve_newlines: true
             })
         )
-		.pipe( gulp.dest('./dist/') )
+        .pipe( gulp.dest('./dist/') )
 )
 
 gulp.task('stylus', () =>
     gulp
-		.src('./dev/stylus/**/*.styl')
-		.pipe( plumber(function() {
-			console.log('STYLUS TASK FAILED!')
-			this.emit('end')
-		}) )
-		.pipe( stylus()
-		)
-		.pipe( csscomb() )
-		.pipe( autoprefixer() )
-		.pipe( gulp.dest('./dist/css') )
+        .src('./dev/stylus/**/*.styl')
+        .pipe( plumber(function() {
+            console.log('STYLUS TASK FAILED!')
+            this.emit('end')
+         }) )
+    .pipe(sourcemaps.init())
+        .pipe( sourcemaps.init() )
+        .pipe( stylus() )
+        .pipe( csscomb() )
+        .pipe( autoprefixer() )
+        .pipe( sourcemaps.write('.') )
+        .pipe( gulp.dest('./dist/css') )
 )
 
 gulp.task('clean', () => gulp.src('./dist').pipe( clean() ) )
@@ -130,7 +141,7 @@ gulp.task('compress', () => {
     if( !isProduction ) return
 
     gulp
-		.src('dist/js/*.js')
+        .src('dist/js/*.js')
         .pipe( uglify() )
         .pipe( gulp.dest('dist/js') )
 
@@ -148,23 +159,25 @@ gulp.task('compress', () => {
 })
 
 gulp.task('build', () =>
-	runSequence('clean'
-		, ['coffee'
-		, 'es6'
-		, 'jade'
-		, 'stylus'
-		, 'js']
-		, 'compress'
-		, 'browsersync'
-	)
+    runSequence('clean'
+        , ['coffee'
+        , 'es6'
+        , 'jade'
+        , 'stylus'
+        , 'sass'
+        , 'js']
+        , 'compress'
+        , 'browsersync'
+    )
 )
 
 gulp.task('watch', () => {
-	gulp.watch( ['./dev/coffee/**/*.coffee'], ['coffee', 'compress'] )
-	gulp.watch( ['./dev/es6/**/*.js'], ['es6', 'compress'] )
-	gulp.watch( ['./dev/jade/**/*.jade'], ['jade', 'compress'] )
-	gulp.watch( ['./dev/stylus/**/*.styl'], ['stylus', 'compress'] )
-	gulp.watch( ['./dev/js/**/*.js'], ['js', 'compress'] )
+    gulp.watch( ['./dev/coffee/**/*.coffee'], ['coffee', 'compress'] )
+    gulp.watch( ['./dev/es6/**/*.js'], ['es6', 'compress'] )
+    gulp.watch( ['./dev/jade/**/*.jade'], ['jade', 'compress'] )
+    gulp.watch( ['./dev/stylus/**/*.styl'], ['stylus', 'compress'] )
+    gulp.watch( ['./dev/sass/**/*.sass'], ['sass', 'compress'] )
+    gulp.watch( ['./dev/js/**/*.js'], ['js', 'compress'] )
 })
 
 gulp.task('default', () => runSequence( 'build' , 'watch') )
