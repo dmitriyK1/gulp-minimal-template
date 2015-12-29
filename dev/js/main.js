@@ -1,3 +1,2 @@
-console.info(767117);
-
-console.log(a);
+console.info(new Date)
+let a = 777

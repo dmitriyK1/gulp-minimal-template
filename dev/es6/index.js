@@ -1,8 +1,8 @@
-const message = 'he1lo world';
+'use strict';
 
-let test = function() {
-	console.info( message );
-};
+const message = 'hello world';
+
+let test= function(){console.info(message)}
 
 test();
 
