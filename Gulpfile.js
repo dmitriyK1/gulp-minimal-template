@@ -50,7 +50,7 @@ gulp.task('es6', () =>
         .pipe( jshint() )
         .pipe( jshint.reporter() )
         .pipe( stylish.combineWithHintResults() )
-		.pipe( gulp.dest('./dist/es6') )
+		.pipe( gulp.dest('./dist/js') )
 )
 
 gulp.task('js', () =>
