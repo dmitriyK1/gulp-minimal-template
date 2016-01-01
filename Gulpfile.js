@@ -3,6 +3,7 @@
 //
 // TODO: Place error handler in separate function
 //
+// TODO: Make es6 sourcemaps work
 
 const gulp         = require('gulp')
 const sass         = require('gulp-sass')
