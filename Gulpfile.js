@@ -1,6 +1,8 @@
 //
 // TODO: Use gulp-if to conditionally load compression where needed
 //
+// TODO: Place error handler in separate function
+//
 
 const gulp         = require('gulp')
 const sass         = require('gulp-sass')
@@ -42,8 +44,9 @@ gulp.task( 'sass', () =>
 gulp.task( 'coffee', () =>
     gulp
         .src('./dev/coffee/**/*.coffee')
-        .pipe( plumber(function() {
+        .pipe( plumber(function( e ) {
             console.log('COFFEE TASK FAILED!')
+            console.log( 'Reason: ' + e.message )
             this.emit('end')
          }) )
         .pipe( changed('./dist/js') )
@@ -62,8 +65,9 @@ gulp.task( 'coffee', () =>
 gulp.task( 'es6', () =>
     gulp
         .src('./dev/es6/**/*.js')
-        .pipe( plumber(function() {
+        .pipe( plumber(function( e ) {
             console.log('ES6 TASK FAILED!')
+            console.log( 'Reason: ' + e.message )
             this.emit('end')
          }) )
         .pipe( babel() )
@@ -77,8 +81,9 @@ gulp.task( 'es6', () =>
 gulp.task( 'js', () =>
     gulp
         .src('./dev/js/**/*.js')
-        .pipe( plumber(function() {
+        .pipe( plumber(function( e ) {
             console.log('JS TASK FAILED!')
+            console.log( 'Reason: ' + e.message )
             this.emit('end')
          }) )
         .pipe( jscs({ fix: true }) )
@@ -91,8 +96,9 @@ gulp.task( 'js', () =>
 gulp.task( 'jade', () =>
     gulp
         .src('./dev/jade/**/*.jade')
-        .pipe( plumber(function() {
+        .pipe( plumber(function( e ) {
             console.log('JADE TASK FAILED!')
+            console.log( 'Reason: ' + e.message )
             this.emit('end')
          }) )
         .pipe( jade({ pretty: true }) )
@@ -113,8 +119,9 @@ gulp.task( 'jade', () =>
 gulp.task( 'stylus', () =>
     gulp
         .src('./dev/stylus/**/*.styl')
-        .pipe( plumber(function() {
+        .pipe( plumber(function( e ) {
                 console.log('STYLUS TASK FAILED!')
+                console.log( 'Reason: ' + e.message )
                 this.emit('end')
             })
          )
