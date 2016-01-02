@@ -7,7 +7,8 @@ function log( e ) {
     console.log([
         '',
         '----------ERROR MESSAGE START----------',
-        `${e.name} in ${e.plugin}`,
+        `Error in plugin: ${e.plugin}`,
+        `Error type: ${e.name}`,
         `Reason: ${e.message}`,
         '----------ERROR MESSAGE END----------',
         ''
