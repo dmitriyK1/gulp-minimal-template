@@ -28,6 +28,7 @@
     "gulp-minify-inline": "^0.1.1",
     "gulp-plumber": "^1.0.1",
     "gulp-prettify": "^0.4.0",
+    "gulp-jsbeautifier": "^1.0.1",
     "gulp-sass": "^2.1.1",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-stylus": "^2.0.5",
