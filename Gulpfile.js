@@ -43,6 +43,7 @@ const prettify     = require('gulp-prettify')
 const mmq          = require('gulp-merge-media-queries')
 const csso         = require('gulp-csso')
 const beautify     = require('gulp-jsbeautifier')
+const stripDebug   = require('gulp-strip-debug')
 const isProduction = gutil.env.p
 
 gulp.task( 'sass', () =>
@@ -166,6 +167,7 @@ gulp.task( 'compress', () => {
     gulp
         .src('dist/js/*.js')
         .pipe( plumber( log ) )
+        .pipe( stripDebug() )
         .pipe( uglify() )
         .pipe( gulp.dest('dist/js') )
 
