@@ -50,7 +50,7 @@ gulp.task( 'coffee', () =>
             console.log( 'Reason: ' + e.message )
             this.emit('end')
          }) )
-        .pipe( changed('./dist/js') )
+        .pipe( changed( './dist/js', { extension: '.js' } ) )
         .pipe( coffeelint() )
         .pipe( coffeelint.reporter() )
         .pipe( sourcemaps.init() )
@@ -72,7 +72,7 @@ gulp.task( 'jsx', () =>
             console.log( 'Reason: ' + e.message )
             this.emit('end')
          }) )
-        .pipe( changed('./dist/js') )
+        .pipe( changed( './dist/js', { extension: '.js' } ) )
         .pipe( babel() )
         .pipe( beautify({ config: '.jsbeautifyrc' }) )
         .pipe( jscs({ fix: true }) )
@@ -90,7 +90,7 @@ gulp.task( 'es6', () =>
             console.log( 'Reason: ' + e.message )
             this.emit('end')
          }) )
-        .pipe( changed('./dist/js') )
+        .pipe( changed( './dist/js', { extension: '.js' } ) )
         .pipe( babel() )
         .pipe( beautify({ config: '.jsbeautifyrc' }) )
         .pipe( jscs({ fix: true }) )
@@ -108,7 +108,7 @@ gulp.task( 'js', () =>
             console.log( 'Reason: ' + e.message )
             this.emit('end')
          }) )
-        .pipe( changed('./dist/js') )
+        .pipe( changed( './dist/js', { extension: '.js' } ) )
         .pipe( beautify({ config: '.jsbeautifyrc' }) )
         .pipe( jscs({ fix: true }) )
         .pipe( jshint() )
@@ -125,7 +125,7 @@ gulp.task( 'jade', () =>
             console.log( 'Reason: ' + e.message )
             this.emit('end')
          }) )
-        .pipe( changed('./dist') )
+        .pipe( changed( './dist', { extension: '.html' } ) )
         .pipe( jade({ pretty: true }) )
         .pipe(
             prettify({
@@ -138,7 +138,7 @@ gulp.task( 'jade', () =>
                 , preserve_newlines: true
             })
         )
-        .pipe( gulp.dest('./dist/') )
+        .pipe( gulp.dest('./dist') )
 )
 
 gulp.task( 'stylus', () =>
@@ -150,7 +150,7 @@ gulp.task( 'stylus', () =>
                 this.emit('end')
             })
          )
-        .pipe( changed('./dist/css') )
+        .pipe( changed( './dist/css', { extension: '.css' } ) )
         .pipe( sourcemaps.init() )
         .pipe( stylus() )
         .pipe( csscomb() )
