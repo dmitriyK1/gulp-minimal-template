@@ -31,6 +31,7 @@ const minifyInline = require('gulp-minify-inline')
 const prettify     = require('gulp-prettify')
 const mmq          = require('gulp-merge-media-queries')
 const csso         = require('gulp-csso')
+const beautify     = require('gulp-jsbeautifier')
 const isProduction = gutil.env.p
 
 gulp.task( 'sass', () =>
@@ -55,6 +56,7 @@ gulp.task( 'coffee', () =>
         .pipe( coffeelint.reporter() )
         .pipe( sourcemaps.init() )
         .pipe( coffee({ bare: true }) )
+        .pipe( beautify({ config: '.jsbeautifyrc' }) )
         .pipe( jscs({ fix: true }) )
         .pipe( jshint() )
         .pipe( jshint.reporter() )
@@ -72,6 +74,7 @@ gulp.task( 'es6', () =>
             this.emit('end')
          }) )
         .pipe( babel() )
+        .pipe( beautify({ config: '.jsbeautifyrc' }) )
         .pipe( jscs({ fix: true }) )
         .pipe( jshint() )
         .pipe( jshint.reporter() )
@@ -87,6 +90,7 @@ gulp.task( 'js', () =>
             console.log( 'Reason: ' + e.message )
             this.emit('end')
          }) )
+        .pipe( beautify({ config: '.jsbeautifyrc' }) )
         .pipe( jscs({ fix: true }) )
         .pipe( jshint() )
         .pipe( jshint.reporter() )
