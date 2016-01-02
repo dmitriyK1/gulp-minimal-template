@@ -1,9 +1,21 @@
 //
 // TODO: Use gulp-if to conditionally load compression where needed
 //
-// TODO: Place error handler in separate function
-//
 // TODO: Make es6 sourcemaps work
+
+function log( e ) {
+    console.log([
+        '',
+        '----------ERROR MESSAGE START----------',
+        `Error in plugin: ${e.plugin}`,
+        `Error type: ${e.name}`,
+        `Reason: ${e.message}`,
+        '----------ERROR MESSAGE END----------',
+        ''
+    ].join('\n'));
+
+    this.end();
+}
 
 const gulp         = require('gulp')
 const sass         = require('gulp-sass')
@@ -31,11 +43,13 @@ const prettify     = require('gulp-prettify')
 const mmq          = require('gulp-merge-media-queries')
 const csso         = require('gulp-csso')
 const beautify     = require('gulp-jsbeautifier')
+const stripDebug   = require('gulp-strip-debug')
 const isProduction = gutil.env.p
 
 gulp.task( 'sass', () =>
     gulp
         .src('./dev/sass/**/*.sass')
+        .pipe( plumber( log ) )
         .pipe( sourcemaps.init() )
         .pipe( sass({ outputStyle: isProduction ? 'compressed' : undefined }).on( 'error', sass.logError ) )
         .pipe( sourcemaps.write('./dist/css') )
@@ -45,11 +59,7 @@ gulp.task( 'sass', () =>
 gulp.task( 'coffee', () =>
     gulp
         .src('./dev/coffee/**/*.coffee')
-        .pipe( plumber(function( e ) {
-            console.log('COFFEE TASK FAILED!')
-            console.log( 'Reason: ' + e.message )
-            this.emit('end')
-         }) )
+        .pipe( plumber( log ) )
         .pipe( changed( './dist/js', { extension: '.js' } ) )
         .pipe( coffeelint() )
         .pipe( coffeelint.reporter() )
@@ -67,11 +77,7 @@ gulp.task( 'coffee', () =>
 gulp.task( 'jsx', () =>
     gulp
         .src('./dev/jsx/**/*.jsx')
-        .pipe( plumber(function( e ) {
-            console.log('JSX TASK FAILED!')
-            console.log( 'Reason: ' + e.message )
-            this.emit('end')
-         }) )
+        .pipe( plumber( log ) )
         .pipe( changed( './dist/js', { extension: '.js' } ) )
         .pipe( babel() )
         .pipe( beautify({ config: '.jsbeautifyrc' }) )
@@ -85,11 +91,7 @@ gulp.task( 'jsx', () =>
 gulp.task( 'es6', () =>
     gulp
         .src('./dev/es6/**/*.js')
-        .pipe( plumber(function( e ) {
-            console.log('ES6 TASK FAILED!')
-            console.log( 'Reason: ' + e.message )
-            this.emit('end')
-         }) )
+        .pipe( plumber( log ) )
         .pipe( changed( './dist/js', { extension: '.js' } ) )
         .pipe( babel() )
         .pipe( beautify({ config: '.jsbeautifyrc' }) )
@@ -103,11 +105,7 @@ gulp.task( 'es6', () =>
 gulp.task( 'js', () =>
     gulp
         .src('./dev/js/**/*.js')
-        .pipe( plumber(function( e ) {
-            console.log('JS TASK FAILED!')
-            console.log( 'Reason: ' + e.message )
-            this.emit('end')
-         }) )
+        .pipe( plumber( log ) )
         .pipe( changed( './dist/js', { extension: '.js' } ) )
         .pipe( beautify({ config: '.jsbeautifyrc' }) )
         .pipe( jscs({ fix: true }) )
@@ -120,11 +118,7 @@ gulp.task( 'js', () =>
 gulp.task( 'jade', () =>
     gulp
         .src('./dev/jade/**/*.jade')
-        .pipe( plumber(function( e ) {
-            console.log('JADE TASK FAILED!')
-            console.log( 'Reason: ' + e.message )
-            this.emit('end')
-         }) )
+        .pipe( plumber( log ) )
         .pipe( changed( './dist', { extension: '.html' } ) )
         .pipe( jade({ pretty: true }) )
         .pipe(
@@ -144,12 +138,7 @@ gulp.task( 'jade', () =>
 gulp.task( 'stylus', () =>
     gulp
         .src('./dev/stylus/**/*.styl')
-        .pipe( plumber(function( e ) {
-                console.log('STYLUS TASK FAILED!')
-                console.log( 'Reason: ' + e.message )
-                this.emit('end')
-            })
-         )
+        .pipe( plumber( log ) )
         .pipe( changed( './dist/css', { extension: '.css' } ) )
         .pipe( sourcemaps.init() )
         .pipe( stylus() )
@@ -177,17 +166,21 @@ gulp.task( 'compress', () => {
 
     gulp
         .src('dist/js/*.js')
+        .pipe( plumber( log ) )
+        .pipe( stripDebug() )
         .pipe( uglify() )
         .pipe( gulp.dest('dist/js') )
 
     gulp
         .src('dist/*.html')
+        .pipe( plumber( log ) )
         .pipe( minify({ collapseWhitespace: true }) )
         .pipe( minifyInline() )
         .pipe( gulp.dest('dist') )
 
     gulp
         .src('dist/css/*.css')
+        .pipe( plumber( log ) )
         .pipe( mmq() )
         .pipe( csso() )
         .pipe( gulp.dest('dist/css') )
