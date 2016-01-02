@@ -65,6 +65,23 @@ gulp.task( 'coffee', () =>
         .pipe( gulp.dest('./dist/js') )
 )
 
+gulp.task( 'jsx', () =>
+    gulp
+        .src('./dev/jsx/**/*.jsx')
+        .pipe( plumber(function( e ) {
+            console.log('JSX TASK FAILED!')
+            console.log( 'Reason: ' + e.message )
+            this.emit('end')
+         }) )
+        .pipe( babel() )
+        .pipe( beautify({ config: '.jsbeautifyrc' }) )
+        .pipe( jscs({ fix: true }) )
+        .pipe( jshint() )
+        .pipe( jshint.reporter() )
+        .pipe( stylish.combineWithHintResults() )
+        .pipe( gulp.dest('./dist/js') )
+)
+
 gulp.task( 'es6', () =>
     gulp
         .src('./dev/es6/**/*.js')
@@ -180,13 +197,15 @@ gulp.task( 'build', () =>
         , 'jade'
         , 'stylus'
         , 'sass'
-        , 'js']
+        , 'js'
+        , 'jsx']
         , 'compress'
         , 'browsersync'
     )
 )
 
 gulp.task( 'watch', () => {
+    gulp.watch( ['./dev/jsx/**/*.jsx'], [ 'jsx', 'compress' ] )
     gulp.watch( ['./dev/coffee/**/*.coffee'], [ 'coffee', 'compress' ] )
     gulp.watch( ['./dev/es6/**/*.js'], [ 'es6', 'compress' ] )
     gulp.watch( ['./dev/jade/**/*.jade'], [ 'jade', 'compress' ] )
