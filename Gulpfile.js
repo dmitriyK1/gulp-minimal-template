@@ -21,7 +21,6 @@ const sass         = require('gulp-sass')
 const babel        = require('gulp-babel')
 const gutil        = require('gulp-util')
 const coffee       = require('gulp-coffee')
-const watch        = require('gulp-watch')
 const jade         = require('gulp-jade')
 const stylus       = require('gulp-stylus')
 const jshint       = require('gulp-jshint')
@@ -59,7 +58,7 @@ gulp.task( 'coffee', () =>
     gulp
         .src('./dev/coffee/**/*.coffee')
         .pipe( plumber( log ) )
-        .pipe( changed('./dist/js') )
+        .pipe( changed( './dist/js', { extension: '.js' } ) )
         .pipe( coffeelint() )
         .pipe( coffeelint.reporter() )
         .pipe( sourcemaps.init() )
@@ -77,6 +76,7 @@ gulp.task( 'jsx', () =>
     gulp
         .src('./dev/jsx/**/*.jsx')
         .pipe( plumber( log ) )
+        .pipe( changed( './dist/js', { extension: '.js' } ) )
         .pipe( babel() )
         .pipe( beautify({ config: '.jsbeautifyrc' }) )
         .pipe( jscs({ fix: true }) )
@@ -90,6 +90,7 @@ gulp.task( 'es6', () =>
     gulp
         .src('./dev/es6/**/*.js')
         .pipe( plumber( log ) )
+        .pipe( changed( './dist/js', { extension: '.js' } ) )
         .pipe( babel() )
         .pipe( beautify({ config: '.jsbeautifyrc' }) )
         .pipe( jscs({ fix: true }) )
@@ -103,6 +104,7 @@ gulp.task( 'js', () =>
     gulp
         .src('./dev/js/**/*.js')
         .pipe( plumber( log ) )
+        .pipe( changed( './dist/js', { extension: '.js' } ) )
         .pipe( beautify({ config: '.jsbeautifyrc' }) )
         .pipe( jscs({ fix: true }) )
         .pipe( jshint() )
@@ -115,6 +117,7 @@ gulp.task( 'jade', () =>
     gulp
         .src('./dev/jade/**/*.jade')
         .pipe( plumber( log ) )
+        .pipe( changed( './dist', { extension: '.html' } ) )
         .pipe( jade({ pretty: true }) )
         .pipe(
             prettify({
@@ -127,13 +130,14 @@ gulp.task( 'jade', () =>
                 , preserve_newlines: true
             })
         )
-        .pipe( gulp.dest('./dist/') )
+        .pipe( gulp.dest('./dist') )
 )
 
 gulp.task( 'stylus', () =>
     gulp
         .src('./dev/stylus/**/*.styl')
         .pipe( plumber( log ) )
+        .pipe( changed( './dist/css', { extension: '.css' } ) )
         .pipe( sourcemaps.init() )
         .pipe( stylus() )
         .pipe( csscomb() )
