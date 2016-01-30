@@ -3,48 +3,42 @@
 //
 // TODO: Make es6 sourcemaps work
 
-function log( e ) {
-    console.log([
-        '',
-        '----------ERROR MESSAGE START----------',
-        `Error in plugin: ${e.plugin}`,
-        `Error type: ${e.name}`,
-        `Reason: ${e.message}`,
-        '----------ERROR MESSAGE END----------',
-        ''
-    ].join('\n'));
-
-    this.end();
-}
-
-const gulp         = require('gulp')
-const sass         = require('gulp-sass')
-const babel        = require('gulp-babel')
-const gutil        = require('gulp-util')
-const coffee       = require('gulp-coffee')
-const jade         = require('gulp-jade')
-const stylus       = require('gulp-stylus')
-const jshint       = require('gulp-jshint')
-const coffeelint   = require('gulp-coffeelint')
-const autoprefixer = require('gulp-autoprefixer')
-const plumber      = require('gulp-plumber')
-const changed      = require('gulp-changed')
-const sourcemaps   = require('gulp-sourcemaps')
-const runSequence  = require('run-sequence')
-const clean        = require('gulp-clean')
-const csscomb      = require('gulp-csscomb')
-const jscs         = require('gulp-jscs')
-const browserSync  = require('browser-sync')
-const stylish      = require('gulp-jscs-stylish')
-const uglify       = require('gulp-uglify')
-const minify       = require('gulp-htmlmin')
-const minifyInline = require('gulp-minify-inline')
-const prettify     = require('gulp-prettify')
-const mmq          = require('gulp-merge-media-queries')
-const csso         = require('gulp-csso')
-const beautify     = require('gulp-jsbeautifier')
-const stripDebug   = require('gulp-strip-debug')
-const isProduction = gutil.env.p
+const isProduction    = require('gulp-util').env.p
+const gulp            = require('gulp')
+const sass            = require('gulp-sass')
+const babel           = require('gulp-babel')
+const coffee          = require('gulp-coffee')
+const jade            = require('gulp-jade')
+const stylus          = require('gulp-stylus')
+const jshint          = require('gulp-jshint')
+const coffeelint      = require('gulp-coffeelint')
+const autoprefixer    = require('gulp-autoprefixer')
+const plumber         = require('gulp-plumber')
+const changed         = require('gulp-changed')
+const sourcemaps      = require('gulp-sourcemaps')
+const runSequence     = require('run-sequence')
+const clean           = require('gulp-clean')
+const csscomb         = require('gulp-csscomb')
+const jscs            = require('gulp-jscs')
+const browserSync     = require('browser-sync')
+const stylish         = require('gulp-jscs-stylish')
+const uglify          = require('gulp-uglify')
+const minify          = require('gulp-htmlmin')
+const minifyInline    = require('gulp-minify-inline')
+const prettify        = require('gulp-prettify')
+const mmq             = require('gulp-merge-media-queries')
+const csso            = require('gulp-csso')
+const beautify        = require('gulp-jsbeautifier')
+const stripDebug      = require('gulp-strip-debug')
+const poststylus      = require('poststylus')
+const cssnano         = require('gulp-cssnano')
+// const postcss         = require('gulp-postcss')
+// const postcssInitial  = require('postcss-initial')
+// const postcssPosition = require('postcss-position')
+// const postcssPlugins  = [
+    // postcssInitial
+    // , postcssPosition
+// ]
 
 gulp.task( 'sass', () =>
     gulp
@@ -141,7 +135,13 @@ gulp.task( 'stylus', () =>
         .pipe( plumber( log ) )
         .pipe( changed( './dist/css', { extension: '.css' } ) )
         .pipe( sourcemaps.init() )
-        .pipe( stylus() )
+        .pipe( stylus({
+            use: [
+                // poststylus([ 'rucksack-css', 'postcss-autoreset', 'postcss-initial', 'postcss-position', 'postcss-normalize', 'postcss-cssnext' ])
+                poststylus([ 'rucksack-css', 'postcss-position', 'postcss-normalize', 'postcss-cssnext' ])
+            ]
+        }))
+        // .pipe( postcss(postcssPlugins) )
         .pipe( csscomb() )
         .pipe( autoprefixer() )
         .pipe( sourcemaps.write('.') )
@@ -183,6 +183,7 @@ gulp.task( 'compress', () => {
         .pipe( plumber( log ) )
         .pipe( mmq() )
         .pipe( csso() )
+        .pipe( cssnano() )
         .pipe( gulp.dest('dist/css') )
 })
 
@@ -212,3 +213,21 @@ gulp.task( 'watch', () => {
 })
 
 gulp.task( 'default', () => runSequence( 'build' , 'watch' ) )
+
+// ================================================================================
+// HELPER FUNCTIONS
+// ================================================================================
+
+function log( e ) {
+    console.log([
+        ''
+        , '----------ERROR MESSAGE START----------'
+        , `Error in plugin: ${e.plugin}`,
+        , `Error type: ${e.name}`
+        , `Reason: ${e.message}`
+        , '----------ERROR MESSAGE END----------'
+        ,''
+    ].join('\n'));
+
+    this.end();
+}
