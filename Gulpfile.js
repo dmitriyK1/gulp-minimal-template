@@ -32,7 +32,21 @@ const beautify        = require('gulp-jsbeautifier')
 const stripDebug      = require('gulp-strip-debug')
 const poststylus      = require('poststylus')
 const cssnano         = require('gulp-cssnano')
-const ngAnnotate        = require('gulp-ng-annotate')
+const ngAnnotate      = require('gulp-ng-annotate')
+const posthtml        = require('gulp-posthtml')
+const posthtmlBemConfig = {
+        elemPrefix: '__',
+        modPrefix: '_',
+        modDlmtr: '--'
+}
+const posthtmlPlugins = [
+    require('posthtml-lorem')()
+    , require('posthtml-bem')( posthtmlBemConfig )
+    , require('posthtml-img-autosize')({
+        root: './' // Path to images base directory (default: './')
+        , processEmptySize: true
+    })
+]
 // const postcss         = require('gulp-postcss')
 // const postcssInitial  = require('postcss-initial')
 // const postcssPosition = require('postcss-position')
@@ -120,6 +134,7 @@ gulp.task( 'jade', () =>
         .pipe( plumber( log ) )
         .pipe( changed( './dist', { extension: '.html' } ) )
         .pipe( jade({ pretty: true }) )
+        .pipe( posthtml( posthtmlPlugins ) )
         .pipe(
             prettify({
                   brace_style: 'expand'

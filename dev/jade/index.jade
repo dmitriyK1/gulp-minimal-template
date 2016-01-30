@@ -8,10 +8,22 @@ html(lang="en")
     body
         h1 Hello world
 
+        img(src="http://www.planwallpaper.com/static/images/magic-of-blue-universe-images.jpg")
+
         i testing jade compile via gulp build system
 
         h3.responsive This header is fully responsive text via font-size: responsive ( rucksack-css feature )
-        
+
+        p(lorem="3")
+
+        section
+            lorem(size="3")
+
+        div(block='animals')
+            | posthml-bem test
+            div(elem='rabbit' mods='type:scurrying color:white')
+            div(elem='dormouse' mods='type:sleeper color:red')
+
         script(src="js/coffee-compiled.js")
         script(src="js/es6-compiled.js")
         // script(src="js/jsx-compiled.js")
