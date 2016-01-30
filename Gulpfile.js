@@ -138,12 +138,12 @@ gulp.task( 'stylus', () =>
         .pipe( stylus({
             use: [
                 // poststylus([ 'rucksack-css', 'postcss-autoreset', 'postcss-initial', 'postcss-position', 'postcss-normalize', 'postcss-cssnext' ])
-                poststylus([ 'rucksack-css', 'postcss-position', 'postcss-normalize', 'postcss-cssnext' ])
+                poststylus([ 'rucksack-css', 'postcss-position', 'postcss-normalize', 'postcss-cssnext', 'postcss-remove-prefixes', 'postcss-flexboxfixer', 'postcss-gradientfixer' ])
             ]
         }))
         // .pipe( postcss(postcssPlugins) )
         .pipe( csscomb() )
-        .pipe( autoprefixer() )
+        .pipe( autoprefixer({ browsers: ['last 2 versions'] }) )
         .pipe( sourcemaps.write('.') )
         .pipe( gulp.dest('./dist/css') )
 )

@@ -38,9 +38,12 @@
     "gulp-watch": "^4.2.4",
     "postcss-autoreset": "^1.1.5",
     "postcss-cssnext": "^2.4.0",
+    "postcss-flexboxfixer": "0.0.4",
+    "postcss-gradientfixer": "0.0.5",
     "postcss-initial": "^1.4.0",
     "postcss-normalize": "^0.1.2",
     "postcss-position": "^0.4.0",
+    "postcss-remove-prefixes": "^1.1.0",
     "poststylus": "^0.2.2",
     "rucksack-css": "^0.8.5",
     "run-sequence": "^1.1.1"
