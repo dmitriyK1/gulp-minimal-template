@@ -5,6 +5,8 @@
 //
 // add for css images inlining
 // TODO: https://github.com/assetsjs/postcss-assets
+//
+// https://github.com/postcss/postcss-safe-parser
 
 const isProduction    = require('gulp-util').env.p
 const gulp            = require('gulp')
