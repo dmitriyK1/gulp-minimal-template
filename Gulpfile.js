@@ -2,6 +2,9 @@
 // TODO: Use gulp-if to conditionally load compression where needed
 //
 // TODO: Make es6 sourcemaps work
+//
+// add for css images inlining
+// TODO: https://github.com/assetsjs/postcss-assets
 
 const isProduction    = require('gulp-util').env.p
 const gulp            = require('gulp')
