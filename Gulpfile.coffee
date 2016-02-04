@@ -209,34 +209,34 @@ gulp.task 'compress', () =>
         .pipe cssnano()
         .pipe gulp.dest 'dist/css'
 
-# gulp.task 'build', () =>
-#     runSequence 'clean',
-#         [
-#             'coffee'
-#             'es6'
-#             'jade'
-#             'stylus'
-#             'sass'
-#             'js'
-#             'jsx'
-#         ]
-#         'compress'
-#         'browsersync'
-#
-# gulp.task 'watch', () =>
-#     gulp.watch ['./dev/jsx/**/*.jsx'],
-#         [ 'jsx', 'compress' ]
-#     gulp.watch ['./dev/coffee/**/*.coffee'],
-#         [ 'coffee', 'compress' ]
-#     gulp.watch ['./dev/es6/**/*.js'],
-#         [ 'es6', 'compress' ]
-#     gulp.watch ['./dev/jade/**/*.jade'],
-#         [ 'jade', 'compress' ]
-#     gulp.watch ['./dev/stylus/**/*.styl'],
-#         [ 'stylus', 'compress' ]
-#     gulp.watch ['./dev/sass/**/*.sass'],
-#         [ 'sass', 'compress' ]
-#     gulp.watch ['./dev/js/**/*.js' ],
-#         [ 'js', 'compress' ]
-#
-# gulp.task 'default', () => runSequence 'build' , 'watch'
+gulp.task 'build', () =>
+    runSequence 'clean',
+        [
+            'coffee'
+            'es6'
+            'jade'
+            'stylus'
+            'sass'
+            'js'
+            'jsx'
+        ]
+        'compress'
+        'browsersync'
+
+gulp.task 'watch', () =>
+    gulp.watch ['./dev/jsx/**/*.jsx'],
+        [ 'jsx', 'compress' ]
+    gulp.watch ['./dev/coffee/**/*.coffee'],
+        [ 'coffee', 'compress' ]
+    gulp.watch ['./dev/es6/**/*.js'],
+        [ 'es6', 'compress' ]
+    gulp.watch ['./dev/jade/**/*.jade'],
+        [ 'jade', 'compress' ]
+    gulp.watch ['./dev/stylus/**/*.styl'],
+        [ 'stylus', 'compress' ]
+    gulp.watch ['./dev/sass/**/*.sass'],
+        [ 'sass', 'compress' ]
+    gulp.watch ['./dev/js/**/*.js' ],
+        [ 'js', 'compress' ]
+
+gulp.task 'default', () => runSequence 'build' , 'watch'
