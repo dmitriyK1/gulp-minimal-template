@@ -178,11 +178,12 @@ gulp.task( 'clean', () => gulp.src('./dist').pipe( clean() ) )
 gulp.task('browsersync', () =>
     browserSync.init(
               ['dist/**/*']
-            , { server: { baseDir: './dist' }
-            , logFileChanges: false
-            , open: true
-            , notify: true
-        }
+            , {
+                  server         : { baseDir: './dist' }
+                , logFileChanges : false
+                , open           : true
+                , notify         : true
+              }
     )
 )
 
