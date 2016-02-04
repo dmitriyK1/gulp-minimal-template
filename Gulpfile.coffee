@@ -48,17 +48,16 @@ cssnano         = require 'gulp-cssnano'
 ngAnnotate      = require 'gulp-ng-annotate'
 posthtml        = require 'gulp-posthtml'
 posthtmlBemConfig =
-        elemPrefix: '__'
-        modPrefix: '_'
-        modDlmtr: '--'
+        elemPrefix : '__'
+        modPrefix  : '_'
+        modDlmtr   : '--'
 
 posthtmlPlugins = [
     require('posthtml-lorem')()
-    require('posthtml-bem')( posthtmlBemConfig )
-    require('posthtml-img-autosize')({
-        root: './'
-        processEmptySize: true
-    })
+    require('posthtml-bem') posthtmlBemConfig
+    require('posthtml-img-autosize')
+        root             : './'
+        processEmptySize : yes
 ]
 
 gulp.task 'sass', () ->
@@ -78,10 +77,10 @@ gulp.task 'coffee', () =>
         .pipe coffeelint()
         .pipe coffeelint.reporter()
         .pipe sourcemaps.init()
-        .pipe coffee { bare: true }
+        .pipe coffee { bare: yes }
         .pipe ngAnnotate()
         .pipe beautify { config: '.jsbeautifyrc' }
-        .pipe jscs { fix: true }
+        .pipe jscs { fix: yes }
         .pipe jshint()
         .pipe jshint.reporter()
         .pipe stylish.combineWithHintResults()
@@ -97,7 +96,7 @@ gulp.task 'jsx', () =>
         .pipe babel()
         .pipe ngAnnotate()
         .pipe beautify({ config: '.jsbeautifyrc' })
-        .pipe jscs { fix: true }
+        .pipe jscs { fix: yes }
         .pipe jshint()
         .pipe jshint.reporter()
         .pipe stylish.combineWithHintResults()
@@ -112,7 +111,7 @@ gulp.task 'es6', () =>
         .pipe babel()
         .pipe ngAnnotate()
         .pipe beautify { config: '.jsbeautifyrc' }
-        .pipe jscs { fix: true }
+        .pipe jscs { fix: yes }
         .pipe jshint()
         .pipe jshint.reporter()
         .pipe stylish.combineWithHintResults()
@@ -126,7 +125,7 @@ gulp.task 'js', () =>
         .pipe changed './dist/js', { extension: '.js' }
         .pipe ngAnnotate()
         .pipe beautify { config: '.jsbeautifyrc' }
-        .pipe jscs { fix: true }
+        .pipe jscs { fix: yes }
         .pipe jshint()
         .pipe jshint.reporter()
         .pipe stylish.combineWithHintResults()
@@ -137,16 +136,16 @@ gulp.task 'jade', () =>
         .src './dev/jade/**/*.jade'
         .pipe plumber log
         .pipe changed './dist', { extension: '.html' }
-        .pipe jade { pretty: true }
+        .pipe jade { pretty: yes }
         .pipe posthtml posthtmlPlugins
         .pipe prettify
-                brace_style: 'expand'
-                indent_size: 1
-                indent_char: '\t'
-                indent_with_tabs: true
-                condense: true
-                indent_inner_html: true
-                preserve_newlines: true
+                brace_style       : 'expand'
+                indent_size       : 1
+                indent_char       : '\t'
+                indent_with_tabs  : yes
+                condense          : yes
+                indent_inner_html : yes
+                preserve_newlines : yes
         .pipe gulp.dest './dist'
 
 gulp.task 'stylus', () =>
@@ -179,10 +178,10 @@ gulp.task 'clean', () =>
 
 gulp.task 'browsersync', () =>
     browserSync.init ['dist/**/*'],
-        server: { baseDir: './dist' }
-        logFileChanges: false
-        open: true
-        notify: true
+        server         : { baseDir: './dist' }
+        logFileChanges : no
+        open           : yes
+        notify         : yes
 
 gulp.task 'compress', () =>
     if isProduction is off then return
@@ -197,7 +196,7 @@ gulp.task 'compress', () =>
     gulp
         .src 'dist/*.html'
         .pipe plumber log
-        .pipe minify { collapseWhitespace: true }
+        .pipe minify { collapseWhitespace: yes }
         .pipe minifyInline()
         .pipe gulp.dest 'dist'
 
