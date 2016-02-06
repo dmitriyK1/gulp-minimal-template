@@ -199,6 +199,8 @@ gulp.task( 'compress', () => {
         .pipe( gulp.dest('dist/css') )
 })
 
+gulp.task( 'help', plugins.taskListing )
+
 gulp.task( 'build', () =>
     runSequence(
           'clean'
