@@ -16,37 +16,38 @@ log = (e) ->
     this.end()
 
 
-isProduction    = require('gulp-util').env.p
-gulp            = require 'gulp'
-sass            = require 'gulp-sass'
-babel           = require 'gulp-babel'
-coffee          = require 'gulp-coffee'
-jade            = require 'gulp-jade'
-stylus          = require 'gulp-stylus'
-jshint          = require 'gulp-jshint'
-coffeelint      = require 'gulp-coffeelint'
-autoprefixer    = require 'gulp-autoprefixer'
-plumber         = require 'gulp-plumber'
-changed         = require 'gulp-changed'
-sourcemaps      = require 'gulp-sourcemaps'
-runSequence     = require 'run-sequence'
-clean           = require 'gulp-clean'
-csscomb         = require 'gulp-csscomb'
-jscs            = require 'gulp-jscs'
-browserSync     = require 'browser-sync'
-stylish         = require 'gulp-jscs-stylish'
-uglify          = require 'gulp-uglify'
-minify          = require 'gulp-htmlmin'
-minifyInline    = require 'gulp-minify-inline'
-prettify        = require 'gulp-prettify'
-mmq             = require 'gulp-merge-media-queries'
-csso            = require 'gulp-csso'
-beautify        = require 'gulp-jsbeautifier'
-stripDebug      = require 'gulp-strip-debug'
-poststylus      = require 'poststylus'
-cssnano         = require 'gulp-cssnano'
-ngAnnotate      = require 'gulp-ng-annotate'
-posthtml        = require 'gulp-posthtml'
+isProduction      = require('gulp-util').env.p
+gulp              = require 'gulp'
+sass              = require 'gulp-sass'
+babel             = require 'gulp-babel'
+coffee            = require 'gulp-coffee'
+jade              = require 'gulp-jade'
+stylus            = require 'gulp-stylus'
+jshint            = require 'gulp-jshint'
+coffeelint        = require 'gulp-coffeelint'
+autoprefixer      = require 'gulp-autoprefixer'
+plumber           = require 'gulp-plumber'
+changed           = require 'gulp-changed'
+sourcemaps        = require 'gulp-sourcemaps'
+runSequence       = require 'run-sequence'
+clean             = require 'gulp-clean'
+csscomb           = require 'gulp-csscomb'
+jscs              = require 'gulp-jscs'
+browserSync       = require 'browser-sync'
+stylish           = require 'gulp-jscs-stylish'
+uglify            = require 'gulp-uglify'
+minify            = require 'gulp-htmlmin'
+minifyInline      = require 'gulp-minify-inline'
+prettify          = require 'gulp-prettify'
+mmq               = require 'gulp-merge-media-queries'
+csso              = require 'gulp-csso'
+beautify          = require 'gulp-jsbeautifier'
+stripDebug        = require 'gulp-strip-debug'
+poststylus        = require 'poststylus'
+cssnano           = require 'gulp-cssnano'
+rev               = require 'gulp-rev-append'
+ngAnnotate        = require 'gulp-ng-annotate'
+posthtml          = require 'gulp-posthtml'
 posthtmlBemConfig =
         elemPrefix : '__'
         modPrefix  : '_'
@@ -208,6 +209,12 @@ gulp.task 'compress', () =>
         .pipe cssnano()
         .pipe gulp.dest 'dist/css'
 
+gulp.task 'rev', () =>
+    gulp
+        .src './dist/*.html'
+        .pipe rev()
+        .pipe gulp.dest './dist'
+
 gulp.task 'build', () =>
     runSequence 'clean',
         [
@@ -219,23 +226,17 @@ gulp.task 'build', () =>
             'js'
             'jsx'
         ]
+        'rev'
         'compress'
         'browsersync'
 
 gulp.task 'watch', () =>
-    gulp.watch ['./dev/jsx/**/*.jsx'],
-        [ 'jsx', 'compress' ]
-    gulp.watch ['./dev/coffee/**/*.coffee'],
-        [ 'coffee', 'compress' ]
-    gulp.watch ['./dev/es6/**/*.js'],
-        [ 'es6', 'compress' ]
-    gulp.watch ['./dev/jade/**/*.jade'],
-        [ 'jade', 'compress' ]
-    gulp.watch ['./dev/stylus/**/*.styl'],
-        [ 'stylus', 'compress' ]
-    gulp.watch ['./dev/sass/**/*.sass'],
-        [ 'sass', 'compress' ]
-    gulp.watch ['./dev/js/**/*.js' ],
-        [ 'js', 'compress' ]
+    gulp.watch ['./dev/jsx/**/*.jsx'      ], [ 'jsx', 'compress'         ]
+    gulp.watch ['./dev/coffee/**/*.coffee'], [ 'coffee', 'compress'      ]
+    gulp.watch ['./dev/es6/**/*.js'       ], [ 'es6', 'compress'         ]
+    gulp.watch ['./dev/jade/**/*.jade'    ], [ 'jade', 'rev', 'compress' ]
+    gulp.watch ['./dev/stylus/**/*.styl'  ], [ 'stylus', 'compress'      ]
+    gulp.watch ['./dev/sass/**/*.sass'    ], [ 'sass', 'compress'        ]
+    gulp.watch ['./dev/js/**/*.js'        ], [ 'js', 'compress'          ]
 
 gulp.task 'default', () => runSequence 'build' , 'watch'

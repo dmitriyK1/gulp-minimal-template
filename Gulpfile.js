@@ -8,47 +8,48 @@
 //
 // https://github.com/postcss/postcss-safe-parser
 
-const isProduction    = require('gulp-util').env.p
-const gulp            = require('gulp')
-const sass            = require('gulp-sass')
-const babel           = require('gulp-babel')
-const coffee          = require('gulp-coffee')
-const jade            = require('gulp-jade')
-const stylus          = require('gulp-stylus')
-const jshint          = require('gulp-jshint')
-const coffeelint      = require('gulp-coffeelint')
-const autoprefixer    = require('gulp-autoprefixer')
-const plumber         = require('gulp-plumber')
-const changed         = require('gulp-changed')
-const sourcemaps      = require('gulp-sourcemaps')
-const runSequence     = require('run-sequence')
-const clean           = require('gulp-clean')
-const csscomb         = require('gulp-csscomb')
-const jscs            = require('gulp-jscs')
-const browserSync     = require('browser-sync')
-const stylish         = require('gulp-jscs-stylish')
-const uglify          = require('gulp-uglify')
-const minify          = require('gulp-htmlmin')
-const minifyInline    = require('gulp-minify-inline')
-const prettify        = require('gulp-prettify')
-const mmq             = require('gulp-merge-media-queries')
-const csso            = require('gulp-csso')
-const beautify        = require('gulp-jsbeautifier')
-const stripDebug      = require('gulp-strip-debug')
-const poststylus      = require('poststylus')
-const cssnano         = require('gulp-cssnano')
-const ngAnnotate      = require('gulp-ng-annotate')
-const posthtml        = require('gulp-posthtml')
+const isProduction      = require('gulp-util').env.p
+const gulp              = require('gulp')
+const sass              = require('gulp-sass')
+const babel             = require('gulp-babel')
+const coffee            = require('gulp-coffee')
+const jade              = require('gulp-jade')
+const stylus            = require('gulp-stylus')
+const jshint            = require('gulp-jshint')
+const coffeelint        = require('gulp-coffeelint')
+const rev               = require('gulp-rev-append')
+const autoprefixer      = require('gulp-autoprefixer')
+const plumber           = require('gulp-plumber')
+const changed           = require('gulp-changed')
+const sourcemaps        = require('gulp-sourcemaps')
+const runSequence       = require('run-sequence')
+const clean             = require('gulp-clean')
+const csscomb           = require('gulp-csscomb')
+const jscs              = require('gulp-jscs')
+const browserSync       = require('browser-sync')
+const stylish           = require('gulp-jscs-stylish')
+const uglify            = require('gulp-uglify')
+const minify            = require('gulp-htmlmin')
+const minifyInline      = require('gulp-minify-inline')
+const prettify          = require('gulp-prettify')
+const mmq               = require('gulp-merge-media-queries')
+const csso              = require('gulp-csso')
+const beautify          = require('gulp-jsbeautifier')
+const stripDebug        = require('gulp-strip-debug')
+const poststylus        = require('poststylus')
+const cssnano           = require('gulp-cssnano')
+const ngAnnotate        = require('gulp-ng-annotate')
+const posthtml          = require('gulp-posthtml')
 const posthtmlBemConfig = {
         elemPrefix: '__',
         modPrefix: '_',
         modDlmtr: '--'
 }
 const posthtmlPlugins = [
-    require('posthtml-lorem')()
+      require('posthtml-lorem')()
     , require('posthtml-bem')( posthtmlBemConfig )
     , require('posthtml-img-autosize')({
-        root: './' // Path to images base directory (default: './')
+          root: './' // Path to images base directory (default: './')
         , processEmptySize: true
     })
 ]
@@ -140,6 +141,7 @@ gulp.task( 'jade', () =>
         .pipe( changed( './dist', { extension: '.html' } ) )
         .pipe( jade({ pretty: true }) )
         .pipe( posthtml( posthtmlPlugins ) )
+        .pipe( rev() )
         .pipe(
             prettify({
                   brace_style: 'expand'
@@ -152,6 +154,13 @@ gulp.task( 'jade', () =>
             })
         )
         .pipe( gulp.dest('./dist') )
+)
+
+gulp.task('rev', () =>
+    gulp
+    .src('./dist/*.html')
+    .pipe( rev() )
+    .pipe( gulp.dest('./dist/') )
 )
 
 gulp.task( 'stylus', () =>
@@ -216,26 +225,29 @@ gulp.task( 'compress', () => {
 gulp.task( 'build', () =>
     runSequence(
           'clean'
-        , ['coffee'
-        , 'es6'
-        , 'jade'
-        , 'stylus'
-        , 'sass'
-        , 'js'
-        , 'jsx']
+        , [
+              'coffee'
+            , 'es6'
+            , 'jade'
+            , 'stylus'
+            , 'sass'
+            , 'js'
+            , 'jsx'
+        ]
+        , 'rev'
         , 'compress'
         , 'browsersync'
     )
 )
 
 gulp.task( 'watch', () => {
-    gulp.watch( ['./dev/jsx/**/*.jsx'], [ 'jsx', 'compress' ] )
-    gulp.watch( ['./dev/coffee/**/*.coffee'], [ 'coffee', 'compress' ] )
-    gulp.watch( ['./dev/es6/**/*.js'], [ 'es6', 'compress' ] )
-    gulp.watch( ['./dev/jade/**/*.jade'], [ 'jade', 'compress' ] )
-    gulp.watch( ['./dev/stylus/**/*.styl'], [ 'stylus', 'compress' ] )
-    gulp.watch( ['./dev/sass/**/*.sass'], [ 'sass', 'compress' ] )
-    gulp.watch( ['./dev/js/**/*.js' ], [ 'js', 'compress' ] )
+    gulp.watch( ['./dev/jsx/**/*.jsx'      ], [ 'jsx', 'compress'         ] )
+    gulp.watch( ['./dev/coffee/**/*.coffee'], [ 'coffee', 'compress'      ] )
+    gulp.watch( ['./dev/es6/**/*.js'       ], [ 'es6', 'compress'         ] )
+    gulp.watch( ['./dev/jade/**/*.jade'    ], [ 'jade', 'rev', 'compress' ] )
+    gulp.watch( ['./dev/stylus/**/*.styl'  ], [ 'stylus', 'compress'      ] )
+    gulp.watch( ['./dev/sass/**/*.sass'    ], [ 'sass', 'compress'        ] )
+    gulp.watch( ['./dev/js/**/*.js'        ], [ 'js', 'compress'          ] )
 })
 
 gulp.task( 'default', () => runSequence( 'build' , 'watch' ) )
@@ -253,7 +265,7 @@ function log( e ) {
         , `Reason: ${e.message}`
         , '----------ERROR MESSAGE END----------'
         ,''
-    ].join('\n'));
+    ].join('\n'))
 
-    this.end();
+    this.end()
 }
