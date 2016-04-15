@@ -12,6 +12,7 @@ const gulp              = require('gulp')
 const plugins           = require('gulp-load-plugins')()
 const isProduction      = plugins.util.env.p
 const runSequence       = require('run-sequence')
+const del               = require('del')
 const browserSync       = require('browser-sync')
 const poststylus        = require('poststylus')
 const posthtmlBemConfig = {
@@ -168,7 +169,7 @@ gulp.task( 'stylus', () =>
         .pipe( gulp.dest('./dist/css') )
 )
 
-gulp.task( 'clean', () => gulp.src('./dist').pipe( plugins.clean() ) )
+gulp.task( 'clean', () => del('dist/**/*') )
 
 gulp.task('browsersync', () =>
     browserSync.init(
