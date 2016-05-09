@@ -37,13 +37,24 @@ const posthtmlPlugins = [
     // , postcssPosition
 // ]
 
+gulp.task('lint-css', () => {
+  gulp
+    .src('./dist/css/**/*.css')
+    .pipe( plugins.plumber( log ) )
+    .pipe(plugins.stylelint({
+      reporters: [
+        { formatter: 'string', console: true }
+      ]
+    }))
+})
+
 gulp.task( 'sass', () =>
     gulp
         .src('./dev/sass/**/*.sass')
         .pipe( plugins.plumber( log ) )
         .pipe( plugins.sourcemaps.init() )
         .pipe( plugins.sass({ outputStyle: isProduction ? 'compressed' : undefined }).on( 'error', plugins.sass.logError ) )
-        .pipe( plugins.sourcemaps.write('./dist/css') )
+        .pipe( plugins.sourcemaps.write('.') )
         .pipe( gulp.dest('./dist/css') )
 )
 
@@ -57,7 +68,7 @@ gulp.task( 'coffee', () =>
         .pipe( plugins.sourcemaps.init() )
         .pipe( plugins.coffee({ bare: true }) )
         .pipe( plugins.ngAnnotate() )
-        .pipe( plugins.fixmyjs({ lookup: true }) )
+        // .pipe( plugins.fixmyjs({ lookup: true }) )
         .pipe( plugins.jsbeautifier({ config: '.jsbeautifyrc' }) )
         .pipe( plugins.jshint('./.jshintrc') )
         .pipe( plugins.jscs({ fix: true }) )
@@ -76,7 +87,7 @@ gulp.task( 'jsx', () =>
         .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
         .pipe( plugins.babel() )
         .pipe( plugins.ngAnnotate() )
-        .pipe( plugins.fixmyjs({ lookup: true }) )
+        // .pipe( plugins.fixmyjs({ lookup: true }) )
         .pipe( plugins.jsbeautifier({ config: '.jsbeautifyrc' }) )
         .pipe( plugins.jshint('./.jshintrc') )
         .pipe( plugins.jscs({ fix: true }) )
@@ -94,7 +105,7 @@ gulp.task( 'es6', () =>
         .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
         .pipe( plugins.babel() )
         .pipe( plugins.ngAnnotate() )
-        .pipe( plugins.fixmyjs({ lookup: true }) )
+        // .pipe( plugins.fixmyjs({ lookup: true }) )
         .pipe( plugins.jsbeautifier({ config: '.jsbeautifyrc' }) )
         .pipe( plugins.jshint('./.jshintrc') )
         .pipe( plugins.jscs({ fix: true }) )
@@ -111,7 +122,7 @@ gulp.task( 'js', () =>
         .pipe( plugins.plumber( log ) )
         .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
         .pipe( plugins.ngAnnotate() )
-        .pipe( plugins.fixmyjs({ lookup: true }) )
+        // .pipe( plugins.fixmyjs({ lookup: true }) )
         .pipe( plugins.jsbeautifier({ config: '.jsbeautifyrc' }) )
         .pipe( plugins.jshint('./.jshintrc') )
         .pipe( plugins.jscs({ fix: true }) )
@@ -224,22 +235,23 @@ gulp.task( 'build', () =>
             , 'stylus'
             , 'sass'
             , 'js'
-            , 'jsx'
+            // , 'jsx'
         ]
         , 'rev'
         , 'compress'
+        , 'lint-css'
         , 'browsersync'
     )
 )
 
 gulp.task( 'watch', () => {
-    gulp.watch( ['./dev/jsx/**/*.jsx'      ], [ 'jsx', 'compress'         ] )
-    gulp.watch( ['./dev/coffee/**/*.coffee'], [ 'coffee', 'compress'      ] )
-    gulp.watch( ['./dev/es6/**/*.js'       ], [ 'es6', 'compress'         ] )
-    gulp.watch( ['./dev/jade/**/*.jade'    ], [ 'jade', 'rev', 'compress' ] )
-    gulp.watch( ['./dev/stylus/**/*.styl'  ], [ 'stylus', 'compress'      ] )
-    gulp.watch( ['./dev/sass/**/*.sass'    ], [ 'sass', 'compress'        ] )
-    gulp.watch( ['./dev/js/**/*.js'        ], [ 'js', 'compress'          ] )
+    // gulp.watch( ['./dev/jsx#<{(||)}>#*.jsx'      ], [ 'jsx', 'compress'                ] )
+    gulp.watch( ['./dev/coffee/**/*.coffee'], [ 'coffee', 'compress'             ] )
+    gulp.watch( ['./dev/es6/**/*.js'       ], [ 'es6', 'compress'                ] )
+    gulp.watch( ['./dev/jade/**/*.jade'    ], [ 'jade', 'rev', 'compress'        ] )
+    gulp.watch( ['./dev/stylus/**/*.styl'  ], [ 'stylus', 'compress', 'lint-css' ] )
+    gulp.watch( ['./dev/sass/**/*.sass'    ], [ 'sass', 'compress', 'lint-css'   ] )
+    gulp.watch( ['./dev/js/**/*.js'        ], [ 'js', 'compress'                 ] )
 })
 
 gulp.task( 'default', () => runSequence( 'build' , 'watch' ) )
