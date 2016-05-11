@@ -13,6 +13,7 @@ const plugins           = require('gulp-load-plugins')()
 const isProduction      = plugins.util.env.p
 const runSequence       = require('run-sequence')
 const del               = require('del')
+const lost              = require('lost')
 const browserSync       = require('browser-sync')
 const poststylus        = require('poststylus')
 const posthtmlBemConfig = {
@@ -170,7 +171,7 @@ gulp.task( 'stylus', () =>
         .pipe( plugins.stylus({
             use: [
                 // poststylus([ 'rucksack-css', 'postcss-autoreset', 'postcss-initial', 'postcss-position', 'postcss-normalize', 'postcss-cssnext' ])
-                poststylus([ 'rucksack-css', 'postcss-position', 'postcss-normalize', 'postcss-cssnext', 'postcss-remove-prefixes', 'postcss-flexboxfixer', 'postcss-gradientfixer' ])
+                poststylus([ 'lost', 'rucksack-css', 'postcss-position', 'postcss-normalize', 'postcss-cssnext', 'postcss-remove-prefixes', 'postcss-flexboxfixer', 'postcss-gradientfixer' ])
             ]
         }))
         // .pipe( postcss(postcssPlugins) )
@@ -249,6 +250,8 @@ gulp.task( 'watch', () => {
     gulp.watch( ['./dev/coffee/**/*.coffee'], [ 'coffee', 'compress'             ] )
     gulp.watch( ['./dev/es6/**/*.js'       ], [ 'es6', 'compress'                ] )
     gulp.watch( ['./dev/jade/**/*.jade'    ], [ 'jade', 'rev', 'compress'        ] )
+    // gulp.watch( ['./dev/stylus#<{(||)}>#*.styl'  ], [ 'stylus', 'compress', 'lint-css' ] )
+    // gulp.watch( ['./dev/sass#<{(||)}>#*.sass'    ], [ 'sass', 'compress', 'lint-css'   ] )
     gulp.watch( ['./dev/stylus/**/*.styl'  ], [ 'stylus', 'compress', 'lint-css' ] )
     gulp.watch( ['./dev/sass/**/*.sass'    ], [ 'sass', 'compress', 'lint-css'   ] )
     gulp.watch( ['./dev/js/**/*.js'        ], [ 'js', 'compress'                 ] )

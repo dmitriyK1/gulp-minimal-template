@@ -46,6 +46,7 @@
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.2.4",
     "jshint-stylish": "^2.1.0",
+    "lost": "^6.7.2",
     "ng-annotate": "^1.2.1",
     "postcss-autoreset": "^1.1.5",
     "postcss-cssnext": "^2.4.0",
