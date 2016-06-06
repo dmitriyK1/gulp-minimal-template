@@ -1,2 +1,0 @@
-console.info 'starting template...'
-

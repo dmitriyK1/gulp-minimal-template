@@ -11,6 +11,7 @@
 const gulp              = require('gulp')
 const plugins           = require('gulp-load-plugins')()
 const isProduction      = plugins.util.env.p
+const critical          = require('critical')
 const runSequence       = require('run-sequence')
 const del               = require('del')
 const lost              = require('lost')
@@ -49,37 +50,6 @@ gulp.task('lint-css', () => {
     }))
 })
 
-gulp.task( 'sass', () =>
-    gulp
-        .src('./dev/sass/**/*.sass')
-        .pipe( plugins.plumber( log ) )
-        .pipe( plugins.sourcemaps.init() )
-        .pipe( plugins.sass({ outputStyle: isProduction ? 'compressed' : undefined }).on( 'error', plugins.sass.logError ) )
-        .pipe( plugins.sourcemaps.write('.') )
-        .pipe( gulp.dest('./dist/css') )
-)
-
-gulp.task( 'coffee', () =>
-    gulp
-        .src('./dev/coffee/**/*.coffee')
-        .pipe( plugins.plumber( log ) )
-        .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
-        .pipe( plugins.coffeelint() )
-        .pipe( plugins.coffeelint.reporter() )
-        .pipe( plugins.sourcemaps.init() )
-        .pipe( plugins.coffee({ bare: true }) )
-        .pipe( plugins.ngAnnotate() )
-        // .pipe( plugins.fixmyjs({ lookup: true }) )
-        .pipe( plugins.jsbeautifier({ config: '.jsbeautifyrc' }) )
-        .pipe( plugins.jshint('./.jshintrc') )
-        .pipe( plugins.jscs({ fix: true }) )
-        .pipe( plugins.jscsStylish.combineWithHintResults() )
-        .pipe( plugins.jshint.reporter('jshint-stylish') )
-        .pipe( plugins.eslint({ fix: true }) )
-        .pipe( plugins.eslint.format() )
-        .pipe( plugins.sourcemaps.write('.') )
-        .pipe( gulp.dest('./dist/js') )
-)
 
 gulp.task( 'jsx', () =>
     gulp
@@ -224,40 +194,43 @@ gulp.task( 'compress', () => {
         .pipe( gulp.dest('dist/css') )
 })
 
+gulp.task( 'critical', () => critical.generate({
+      inline : true,
+      base   : 'dist/',
+      src    : 'index.html',
+      dest   : 'dist/index-critical.html',
+      width  : 1300,
+      height : 900
+  })
+)
+
 gulp.task( 'help', plugins.taskListing )
 
 gulp.task( 'build', () =>
     runSequence(
-          'clean'
-        , [
-              'coffee'
+        [
+              'clean'
             , 'es6'
             , 'jade'
             , 'stylus'
-            , 'sass'
             , 'js'
             // , 'jsx'
         ]
         , 'rev'
         , 'compress'
         , 'lint-css'
-        , 'browsersync'
     )
 )
 
 gulp.task( 'watch', () => {
     // gulp.watch( ['./dev/jsx#<{(||)}>#*.jsx'      ], [ 'jsx', 'compress'                ] )
-    gulp.watch( ['./dev/coffee/**/*.coffee'], [ 'coffee', 'compress'             ] )
     gulp.watch( ['./dev/es6/**/*.js'       ], [ 'es6', 'compress'                ] )
     gulp.watch( ['./dev/jade/**/*.jade'    ], [ 'jade', 'rev', 'compress'        ] )
-    // gulp.watch( ['./dev/stylus#<{(||)}>#*.styl'  ], [ 'stylus', 'compress', 'lint-css' ] )
-    // gulp.watch( ['./dev/sass#<{(||)}>#*.sass'    ], [ 'sass', 'compress', 'lint-css'   ] )
     gulp.watch( ['./dev/stylus/**/*.styl'  ], [ 'stylus', 'compress', 'lint-css' ] )
-    gulp.watch( ['./dev/sass/**/*.sass'    ], [ 'sass', 'compress', 'lint-css'   ] )
     gulp.watch( ['./dev/js/**/*.js'        ], [ 'js', 'compress'                 ] )
 })
 
-gulp.task( 'default', () => runSequence( 'build' , 'watch' ) )
+gulp.task( 'default', () => runSequence( ['build' ,'browsersync', 'watch'] ) )
 
 // ================================================================================
 // HELPER FUNCTIONS
