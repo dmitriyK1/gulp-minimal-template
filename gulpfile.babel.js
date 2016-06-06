@@ -36,10 +36,6 @@ const posthtmlBemConfig = {
 const posthtmlPlugins = [
       require('posthtml-lorem')()
     , require('posthtml-bem')( posthtmlBemConfig )
-    , require('posthtml-img-autosize')({
-          root: './'
-        , processEmptySize: true
-    })
 ]
 
 // const postcss         = require('gulp-postcss')
