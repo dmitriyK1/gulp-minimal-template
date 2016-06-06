@@ -134,7 +134,7 @@ gulp.task('rev', () =>
 
 gulp.task( 'stylus', () =>
     gulp
-        .src('./dev/stylus/**/*.styl')
+        .src('./dev/stylus/main.styl')
         .pipe( plugins.plumber( log ) )
         .pipe( plugins.changed( './dist/css', { extension: '.css' } ) )
         .pipe( plugins.sourcemaps.init() )
@@ -151,7 +151,7 @@ gulp.task( 'stylus', () =>
         .pipe( gulp.dest('./dist/css') )
 )
 
-gulp.task( 'clean', () => del('dist/**/*') )
+gulp.task( 'clean', () => del(['dist/**/*']) )
 
 gulp.task('serve', () =>
     browserSync.init(
@@ -208,14 +208,14 @@ gulp.task( 'help', plugins.taskListing )
 
 gulp.task( 'build', () =>
     runSequence(
-        [
+          [
               'clean'
             , 'es6'
             , 'jade'
             , 'stylus'
             , 'js'
             // , 'jsx'
-        ]
+          ]
         , 'rev'
         , 'compress'
         , 'lint-css'
@@ -230,7 +230,7 @@ gulp.task( 'watch', () => {
     gulp.watch( ['./dev/js/**/*.js'        ], [ 'js', 'compress'                 ] )
 })
 
-gulp.task( 'default', () => runSequence( ['build' ,'serve', 'watch'] ) )
+gulp.task( 'default', () => runSequence( 'build', 'serve', 'watch' ) )
 
 // ================================================================================
 // HELPER FUNCTIONS
