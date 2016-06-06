@@ -173,6 +173,7 @@ gulp.task('serve', () =>
                 , reloadOnRestart : true
                 , open            : true
                 , notify          : true
+                , logFileChanges  : false
               }
     )
 )
