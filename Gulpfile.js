@@ -53,7 +53,7 @@ gulp.task('lint-css', () => {
 
 gulp.task( 'jsx', () =>
     gulp
-        .src('./dev/jsx/**/*.jsx')
+        .src('./dev/scripts/jsx/**/*.jsx')
         .pipe( plugins.plumber( log ) )
         .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
         .pipe( plugins.babel() )
@@ -71,7 +71,7 @@ gulp.task( 'jsx', () =>
 
 gulp.task( 'es6', () =>
     gulp
-        .src('./dev/es6/**/*.js')
+        .src('./dev/scripts/es6/**/*.js')
         .pipe( plugins.plumber( log ) )
         .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
         .pipe( plugins.babel() )
@@ -89,7 +89,7 @@ gulp.task( 'es6', () =>
 
 gulp.task( 'js', () =>
     gulp
-        .src('./dev/js/**/*.js')
+        .src('./dev/scripts/js/**/*.js')
         .pipe( plugins.plumber( log ) )
         .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
         .pipe( plugins.ngAnnotate() )
@@ -106,7 +106,7 @@ gulp.task( 'js', () =>
 
 gulp.task( 'jade', () =>
     gulp
-        .src('./dev/jade/**/*.jade')
+        .src('./dev/jade/pages/**/*.jade')
         .pipe( plugins.plumber( log ) )
         .pipe( plugins.changed( './dist', { extension: '.html' } ) )
         .pipe( plugins.jade({ pretty: true }) )
