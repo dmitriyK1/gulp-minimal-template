@@ -1,3 +1,4 @@
+// TODO: Add es6 for gulpfile config
 //
 // TODO: Use gulp-if to conditionally load compression where needed
 //
