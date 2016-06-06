@@ -153,7 +153,7 @@ gulp.task( 'stylus', () =>
 
 gulp.task( 'clean', () => del('dist/**/*') )
 
-gulp.task('browsersync', () =>
+gulp.task('serve', () =>
     browserSync.init(
               ['dist/**/*']
             , {
@@ -230,7 +230,7 @@ gulp.task( 'watch', () => {
     gulp.watch( ['./dev/js/**/*.js'        ], [ 'js', 'compress'                 ] )
 })
 
-gulp.task( 'default', () => runSequence( ['build' ,'browsersync', 'watch'] ) )
+gulp.task( 'default', () => runSequence( ['build' ,'serve', 'watch'] ) )
 
 // ================================================================================
 // HELPER FUNCTIONS
