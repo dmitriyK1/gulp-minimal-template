@@ -236,9 +236,9 @@ gulp.task( 'build', () =>
 )
 
 gulp.task( 'watch', () => {
-    gulp.watch( ['./dev/templates/**/*.jade'     ], [ 'templates', 'rev', 'compress'   ] )
-    gulp.watch( ['./dev/styles/**/*.styl'   ], [ 'styles', 'compress', 'lint-css' ] )
-    gulp.watch( ['./dev/scripts/js/**/*.js' ], [ 'scripts', 'compress'            ] )
+    gulp.watch( ['./dev/templates/**/*.jade' ], [ 'templates', 'rev', 'compress', browserSync.reload ] )
+    gulp.watch( ['./dev/styles/**/*.styl'    ], [ 'styles', 'compress', 'lint-css'                   ] )
+    gulp.watch( ['./dev/scripts/js/**/*.js'  ], [ 'scripts', 'compress'                              ] )
     // gulp.watch( ['./dev/jsx#<{(||)}>#*.jsx'      ], [ 'jsx', 'compress'                ] )
 })
 
