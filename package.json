@@ -63,6 +63,7 @@
     "posthtml-lorem": "^1.0.0",
     "poststylus": "^0.2.2",
     "rucksack-css": "^0.8.5",
-    "run-sequence": "^1.1.1"
+    "run-sequence": "^1.1.1",
+    "rupture": "^0.6.1"
   }
 }

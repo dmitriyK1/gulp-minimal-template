@@ -1,3 +1,5 @@
+// TODO: make browserSync reload on jade compilation
+
 // TODO: add something from https://github.com/CSSSR/csssr-project-template
 
 // TODO: split config into separate task files
@@ -22,6 +24,7 @@ import critical           from 'critical'
 import runSequence        from 'run-sequence'
 import del                from 'del'
 import lost               from 'lost'
+import rupture            from 'rupture'
 import browserSync        from 'browser-sync'
 import eslintHtmlReporter from 'eslint-html-reporter';
 import poststylus         from 'poststylus'
@@ -102,6 +105,7 @@ gulp.task( 'scripts', () =>
         .pipe( plugins.jscs({ fix: true }) )
         .pipe( plugins.eslint({ fix: true }) )
         .pipe( plugins.eslint.format( eslintHtmlReporter, results => fs.writeFileSync(path.join(__dirname, 'reports/eslint.html'), results) ) )
+        .pipe( plugins.eslint.format() )
         .pipe( plugins.jshint('./.jshintrc') )
         .pipe( plugins.jscsStylish.combineWithHintResults() )
         .pipe( plugins.jshint.reporter('gulp-jshint-file-reporter'))
@@ -148,7 +152,8 @@ gulp.task( 'styles', () =>
         .pipe( plugins.stylus({
             use: [
                 // poststylus([ 'rucksack-css', 'postcss-autoreset', 'postcss-initial', 'postcss-position', 'postcss-normalize', 'postcss-cssnext' ])
-                poststylus([ 'lost', 'rucksack-css', 'postcss-position', 'postcss-normalize', 'postcss-cssnext', 'postcss-remove-prefixes', 'postcss-flexboxfixer', 'postcss-gradientfixer' ])
+                  rupture()
+                , poststylus([ 'lost', 'rucksack-css', 'postcss-position', 'postcss-normalize', 'postcss-cssnext', 'postcss-remove-prefixes', 'postcss-flexboxfixer', 'postcss-gradientfixer' ])
             ]
         }))
         // .pipe( postcss(postcssPlugins) )
@@ -164,10 +169,10 @@ gulp.task('serve', () =>
     browserSync.init(
               ['dist/**/*']
             , {
-                  server         : { baseDir: './dist' }
-                , logFileChanges : false
-                , open           : true
-                , notify         : true
+                  server          : { baseDir: './dist' }
+                , reloadOnRestart : true
+                , open            : true
+                , notify          : true
               }
     )
 )
