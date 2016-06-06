@@ -1,5 +1,3 @@
-// TODO: make browserSync reload on jade compilation
-
 // TODO: add something from https://github.com/CSSSR/csssr-project-template
 
 // TODO: split config into separate task files
@@ -157,21 +155,20 @@ gulp.task( 'styles', () =>
         .pipe( plugins.autoprefixer({ browsers: ['last 2 versions'] }) )
         .pipe( plugins.sourcemaps.write('.') )
         .pipe( gulp.dest('./dist/css') )
+        .pipe( browserSync.stream({ match: '**/*.css' }) )
 )
 
 gulp.task( 'clean', () => del.sync('dist/**/*') )
 
 gulp.task('serve', () =>
-    browserSync.init(
-              ['dist/**/*']
-            , {
-                  server          : { baseDir: './dist' }
-                , reloadOnRestart : true
-                , open            : true
-                , notify          : true
-                , logFileChanges  : false
-              }
-    )
+    browserSync.init({
+          server          : { baseDir: 'dist' }
+        , reloadOnRestart : true
+        , open            : true
+        , notify          : false
+        , logFileChanges  : false
+        , watchOptions    : { ignored: '*.map' }
+    })
 )
 
 gulp.task( 'compress', () => {
