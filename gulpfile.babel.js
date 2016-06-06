@@ -1,23 +1,30 @@
-// TODO: Add es6 for gulpfile config
-//
+// TODO: add something from https://github.com/CSSSR/csssr-project-template
+
+// TODO: split config into separate task files
+
+// TODO: add webpack
+
+// TODO: add sprites task
+
 // TODO: Use gulp-if to conditionally load compression where needed
-//
-// TODO: Make es6 sourcemaps work
 //
 // add for css images inlining
 // TODO: https://github.com/assetsjs/postcss-assets
 //
 // https://github.com/postcss/postcss-safe-parser
 
-const gulp              = require('gulp')
-const plugins           = require('gulp-load-plugins')()
-const isProduction      = plugins.util.env.p
-const critical          = require('critical')
-const runSequence       = require('run-sequence')
-const del               = require('del')
-const lost              = require('lost')
-const browserSync       = require('browser-sync')
-const poststylus        = require('poststylus')
+import fs                 from 'fs'
+import path               from 'path'
+import gulp               from 'gulp'
+const plugins             = require('gulp-load-plugins')()
+const isProduction        = plugins.util.env.p
+import critical           from 'critical'
+import runSequence        from 'run-sequence'
+import del                from 'del'
+import lost               from 'lost'
+import browserSync        from 'browser-sync'
+import eslintHtmlReporter from 'eslint-html-reporter';
+import poststylus         from 'poststylus'
 const posthtmlBemConfig = {
         elemPrefix: '__',
         modPrefix: '_',
@@ -40,74 +47,73 @@ const posthtmlPlugins = [
     // , postcssPosition
 // ]
 
-gulp.task('lint-css', () => {
+gulp.task('lint-css', () =>
   gulp
     .src('./dist/css/**/*.css')
     .pipe( plugins.plumber( log ) )
-    .pipe(plugins.stylelint({
-      reporters: [
-        { formatter: 'string', console: true }
-      ]
-    }))
-})
+    .pipe(
+      plugins.stylelint({
+            reportOutputDir : 'reports'
+          , failAfterError  : false
+          , reporters: [{
+              formatter : 'verbose'
+              , save      : 'stylelint.txt'
+              , console   : false
+          }]
+      })
+    )
+)
 
 
-gulp.task( 'jsx', () =>
+// gulp.task( 'jsx', () =>
+//     gulp
+//         .src('./dev/scripts/jsx#<{(||)}>#*.jsx')
+//         .pipe( plugins.plumber( log ) )
+//         .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
+//         .pipe( plugins.babel() )
+//         .pipe( plugins.ngAnnotate() )
+//         // .pipe( plugins.fixmyjs({ lookup: true }) )
+//         .pipe( plugins.jsbeautifier({ config: '.jsbeautifyrc' }) )
+//         .pipe( plugins.jshint('./.jshintrc') )
+//         .pipe( plugins.jscs({ fix: true }) )
+//         .pipe( plugins.jscsStylish.combineWithHintResults() )
+//         .pipe( plugins.jshint.reporter('jshint-stylish') )
+//         .pipe( plugins.eslint({ fix: true }) )
+//         .pipe( plugins.eslint.format() )
+//         .pipe( gulp.dest('./dist/js') )
+// )
+
+gulp.task( 'scripts', () =>
     gulp
-        .src('./dev/scripts/jsx/**/*.jsx')
+        .src('./dev/scripts/js/init.js')
         .pipe( plugins.plumber( log ) )
         .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
+        .pipe( plugins.sourcemaps.init() )
         .pipe( plugins.babel() )
-        .pipe( plugins.ngAnnotate() )
-        // .pipe( plugins.fixmyjs({ lookup: true }) )
+        .pipe(plugins.fixmyjs({
+            lookup   : true,
+            curly    : true,
+            es3      : true,
+            nonew    : true,
+            multivar : true,
+            debug    : false
+        }))
         .pipe( plugins.jsbeautifier({ config: '.jsbeautifyrc' }) )
-        .pipe( plugins.jshint('./.jshintrc') )
         .pipe( plugins.jscs({ fix: true }) )
-        .pipe( plugins.jscsStylish.combineWithHintResults() )
-        .pipe( plugins.jshint.reporter('jshint-stylish') )
         .pipe( plugins.eslint({ fix: true }) )
-        .pipe( plugins.eslint.format() )
+        .pipe( plugins.eslint.format( eslintHtmlReporter, results => fs.writeFileSync(path.join(__dirname, 'reports/eslint.html'), results) ) )
+        .pipe( plugins.jshint('./.jshintrc') )
+        .pipe( plugins.jscsStylish.combineWithHintResults() )
+        .pipe( plugins.jshint.reporter('gulp-jshint-file-reporter'))
+        .pipe( plugins.jshint.reporter('jshint-stylish') )
+        .pipe( plugins.ngAnnotate() )
+        .pipe( plugins.sourcemaps.write('.') )
         .pipe( gulp.dest('./dist/js') )
 )
 
-gulp.task( 'es6', () =>
+gulp.task( 'templates', () =>
     gulp
-        .src('./dev/scripts/es6/**/*.js')
-        .pipe( plugins.plumber( log ) )
-        .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
-        .pipe( plugins.babel() )
-        .pipe( plugins.ngAnnotate() )
-        // .pipe( plugins.fixmyjs({ lookup: true }) )
-        .pipe( plugins.jsbeautifier({ config: '.jsbeautifyrc' }) )
-        .pipe( plugins.jshint('./.jshintrc') )
-        .pipe( plugins.jscs({ fix: true }) )
-        .pipe( plugins.jscsStylish.combineWithHintResults() )
-        .pipe( plugins.jshint.reporter('jshint-stylish') )
-        .pipe( plugins.eslint({ fix: true }) )
-        .pipe( plugins.eslint.format() )
-        .pipe( gulp.dest('./dist/js') )
-)
-
-gulp.task( 'js', () =>
-    gulp
-        .src('./dev/scripts/js/**/*.js')
-        .pipe( plugins.plumber( log ) )
-        .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
-        .pipe( plugins.ngAnnotate() )
-        // .pipe( plugins.fixmyjs({ lookup: true }) )
-        .pipe( plugins.jsbeautifier({ config: '.jsbeautifyrc' }) )
-        .pipe( plugins.jshint('./.jshintrc') )
-        .pipe( plugins.jscs({ fix: true }) )
-        .pipe( plugins.jscsStylish.combineWithHintResults() )
-        .pipe( plugins.jshint.reporter('jshint-stylish') )
-        .pipe( plugins.eslint({ fix: true }) )
-        .pipe( plugins.eslint.format() )
-        .pipe( gulp.dest('./dist/js') )
-)
-
-gulp.task( 'jade', () =>
-    gulp
-        .src('./dev/jade/pages/**/*.jade')
+        .src('./dev/templates/pages/**/*.jade')
         .pipe( plugins.plumber( log ) )
         .pipe( plugins.changed( './dist', { extension: '.html' } ) )
         .pipe( plugins.jade({ pretty: true }) )
@@ -133,9 +139,9 @@ gulp.task('rev', () =>
     .pipe( gulp.dest('./dist/') )
 )
 
-gulp.task( 'stylus', () =>
+gulp.task( 'styles', () =>
     gulp
-        .src('./dev/stylus/main.styl')
+        .src('./dev/styles/main.styl')
         .pipe( plugins.plumber( log ) )
         .pipe( plugins.changed( './dist/css', { extension: '.css' } ) )
         .pipe( plugins.sourcemaps.init() )
@@ -152,7 +158,7 @@ gulp.task( 'stylus', () =>
         .pipe( gulp.dest('./dist/css') )
 )
 
-gulp.task( 'clean', () => del(['dist/**/*']) )
+gulp.task( 'clean', () => del.sync('dist/**/*') )
 
 gulp.task('serve', () =>
     browserSync.init(
@@ -205,33 +211,45 @@ gulp.task( 'critical', () => critical.generate({
   })
 )
 
+gulp.task( 'copy', () =>
+  gulp
+    .src('dev/resources/**/*')
+    .pipe( plugins.changed('dist') )
+    .pipe( gulp.dest('dist') )
+)
+
 gulp.task( 'help', plugins.taskListing )
 
 gulp.task( 'build', () =>
     runSequence(
           [
               'clean'
-            , 'es6'
-            , 'jade'
-            , 'stylus'
-            , 'js'
+            , 'copy'
+            , 'scripts'
+            , 'templates'
+            , 'styles'
             // , 'jsx'
           ]
-        , 'rev'
-        , 'compress'
-        , 'lint-css'
+            , 'rev'
+            , 'lint-css'
+            , 'compress'
     )
 )
 
 gulp.task( 'watch', () => {
+    gulp.watch( ['./dev/templates/**/*.jade'     ], [ 'templates', 'rev', 'compress'   ] )
+    gulp.watch( ['./dev/styles/**/*.styl'   ], [ 'styles', 'compress', 'lint-css' ] )
+    gulp.watch( ['./dev/scripts/js/**/*.js' ], [ 'scripts', 'compress'            ] )
     // gulp.watch( ['./dev/jsx#<{(||)}>#*.jsx'      ], [ 'jsx', 'compress'                ] )
-    gulp.watch( ['./dev/es6/**/*.js'       ], [ 'es6', 'compress'                ] )
-    gulp.watch( ['./dev/jade/**/*.jade'    ], [ 'jade', 'rev', 'compress'        ] )
-    gulp.watch( ['./dev/stylus/**/*.styl'  ], [ 'stylus', 'compress', 'lint-css' ] )
-    gulp.watch( ['./dev/js/**/*.js'        ], [ 'js', 'compress'                 ] )
 })
 
-gulp.task( 'default', () => runSequence( 'build', 'serve', 'watch' ) )
+gulp.task( 'default', () =>
+  runSequence(
+      'build'
+    , 'serve'
+    , 'watch'
+  )
+)
 
 // ================================================================================
 // HELPER FUNCTIONS

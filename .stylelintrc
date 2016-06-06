@@ -19,7 +19,7 @@
 		"function-linear-gradient-no-nonstandard-direction": true,
 		"function-parentheses-newline-inside": "never-multi-line",
 		"function-parentheses-space-inside": "never",
-		"function-url-quotes": "none",
+		"function-url-quotes": "never",
 		"function-whitespace-after": null,
 
 		"value-no-vendor-prefix": true,

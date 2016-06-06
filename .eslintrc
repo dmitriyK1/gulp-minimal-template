@@ -1,9 +1,44 @@
 {
+    //https://gist.github.com/ghostwords/40936f11091b87987e56
+    // http://eslint.org/docs/rules/
+    // https://gist.github.com/Corhero/e3c586cb105e8864308b
+  "extends": "eslint:recommended",
   "env": {
-    "browser": 1
+    "browser": true,
+    "node": true,
+    "amd": true,
+    "jquery": true,
+    "es6": true
   },
- 
   "globals": {
     "angular": 1
+  },
+  "ecmaFeatures": {
+    "arrowFunctions": true,
+    "binaryLiterals": true,
+    "blockBindings": true,
+    "classes": true,
+    "defaultParams": true,
+    "destructuring": true,
+    "forOf": true,
+    "generators": true,
+    "modules": true,
+    "objectLiteralComputedProperties": true,
+    "objectLiteralDuplicateProperties": true,
+    "objectLiteralShorthandMethods": true,
+    "objectLiteralShorthandProperties": true,
+    "octalLiterals": true,
+    "regexUFlag": true,
+    "regexYFlag": true,
+    "spread": true,
+    "superInFunctions": true,
+    "templateStrings": true,
+    "unicodeCodePointEscapes": true,
+    "globalReturn": true,
+    "jsx": true
+  },
+  "parser": null,
+  "rules": {
+    "no-console": 0
   }
 }

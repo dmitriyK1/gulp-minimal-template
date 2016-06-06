@@ -11,5 +11,9 @@
 	"smarttabs": true,
 	"trailing": true,
 	"undef": false,
-	"unused": true
+	"unused": true,
+	"esversion": 6,
+    "browser": true,
+    "node": true,
+    "filename": "./reports/jshint.log"
 }

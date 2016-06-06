@@ -1,0 +1,172 @@
+
+dist/css/main.css
+   2:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+   6:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  11:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  14:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  17:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  32:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  39:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  43:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  47:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  50:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  54:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  57:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  62:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  65:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  67:2   ×  Expected property "font-size" to come before property "margin"                         declaration-block-properties-order    
+  69:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  70:9   ×  Expected "#000" to be "#000000"                                                        color-hex-length                      
+  71:2   ×  Expected property "background" to come before property "color"                         declaration-block-properties-order    
+  71:14  ×  Expected "#ff0" to be "#ffff00"                                                        color-hex-length                      
+  73:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  76:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  79:2   ×  Expected property "font-size" to come before property "position"                       declaration-block-properties-order    
+  83:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  86:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  89:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  92:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  95:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+  99:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 103:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 107:24  ×  Expected single space after ","                                                        value-list-comma-space-after          
+ 110:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 116:2   ×  Expected property "font" to come before property "margin"                              declaration-block-properties-order    
+ 117:2   ×  Expected property "color" to come before property "font"                               declaration-block-properties-order    
+ 119:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 122:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 126:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 132:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 136:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 139:2   ×  Expected property "border" to come before property "padding"                           declaration-block-properties-order    
+ 141:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 144:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 147:2   ×  Expected property "box-sizing" to come before property "padding"                       declaration-block-properties-order    
+ 149:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 153:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 160:2   ×  Expected property "border" to come before property "padding"                           declaration-block-properties-order    
+ 160:20  ×  Unexpected named color "silver"                                                        color-named                           
+ 162:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 164:2   ×  Expected property "border-collapse" to come before property "border-spacing"           declaration-block-properties-order    
+ 166:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 168:2   ×  Expected property "margin-left" to come before property "margin-right"                 declaration-block-properties-order    
+ 173:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 173:11  ×  Expected double colon pseudo-element notation                                          selector-pseudo-element-colon-notation
+ 175:2   ×  Expected property "content" to come before property "display"                          declaration-block-properties-order    
+ 175:11  ×  Expected double quotes                                                                 string-quotes                         
+ 177:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 177:11  ×  Expected double colon pseudo-element notation                                          selector-pseudo-element-colon-notation
+ 179:2   ×  Expected property "clear" to come before property "display"                            declaration-block-properties-order    
+ 180:11  ×  Expected double quotes                                                                 string-quotes                         
+ 182:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 183:21  ×  Expected single space before "/" operator                                              function-calc-no-unspaced-operator    
+ 183:21  ×  Expected single space after "/" operator                                               function-calc-no-unspaced-operator    
+ 184:2   ×  Expected property "height" to come before property "width"                             declaration-block-properties-order    
+ 184:22  ×  Expected single space before "/" operator                                              function-calc-no-unspaced-operator    
+ 184:22  ×  Expected single space after "/" operator                                               function-calc-no-unspaced-operator    
+ 185:15  ×  Expected "#f00" to be "#ff0000"                                                        color-hex-length                      
+ 187:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 189:2   ×  Expected property "margin-bottom" to come before property "margin-right"               declaration-block-properties-order    
+ 190:2   ×  Expected property "float" to come before property "margin-bottom"                      declaration-block-properties-order    
+ 191:2   ×  Expected property "clear" to come before property "float"                              declaration-block-properties-order    
+ 193:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 195:2   ×  Expected property "margin-bottom" to come before property "margin-right"               declaration-block-properties-order    
+ 197:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 199:2   ×  Expected property "float" to come before property "margin-right"                       declaration-block-properties-order    
+ 201:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 204:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 207:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 210:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 214:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 215:2   ×  Expected double colon pseudo-element notation                                          selector-pseudo-element-colon-notation
+ 216:2   ×  Expected double colon pseudo-element notation                                          selector-pseudo-element-colon-notation
+ 219:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 220:14  ×  Expected "#fff" to be "#ffffff"                                                        color-hex-length                      
+ 222:2   ×  Expected property "-webkit-appearance" to come before property "background"            declaration-block-properties-order    
+ 224:5   ×  Expected property "-moz-appearance" to come before property "-webkit-appearance"       declaration-block-properties-order    
+ 224:5   ×  Expected indentation of 1 tab                                                          indentation                           
+ 226:10  ×  Expected indentation of 1 tab                                                          indentation                           
+ 228:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 232:2   ×  Expected property "background-color" to come before property "line-height"             declaration-block-properties-order    
+ 232:20  ×  Expected "#ccc" to be "#cccccc"                                                        color-hex-length                      
+ 234:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 237:2   ×  Expected property "right" to come before property "top"                                declaration-block-properties-order    
+ 238:2   ×  Expected property "bottom" to come before property "right"                             declaration-block-properties-order    
+ 241:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 254:1   ×  Expected empty line before non-nested rule                                             rule-non-nested-empty-line-before     
+ 257:2   ×  Expected property "top" to come before property "z-index"                              declaration-block-properties-order    
+ 258:2   ×  Expected property "right" to come before property "top"                                declaration-block-properties-order    
+ 259:2   ×  Expected property "bottom" to come before property "right"                             declaration-block-properties-order    
+ 263:2   ×  Expected property "display" to come before property "padding"                          declaration-block-properties-order    
+ 265:2   ×  Expected property "float" to come before property "visibility"                         declaration-block-properties-order    
+ 266:2   ×  Expected property "clear" to come before property "float"                              declaration-block-properties-order    
+ 270:2   ×  Expected property "clip" to come before property "overflow-y"                          declaration-block-properties-order    
+ 271:2   ×  Expected property "box-sizing" to come before property "clip"                          declaration-block-properties-order    
+ 273:2   ×  Expected property "min-width" to come before property "width"                          declaration-block-properties-order    
+ 274:2   ×  Expected property "max-width" to come before property "min-width"                      declaration-block-properties-order    
+ 275:2   ×  Expected property "height" to come before property "max-width"                         declaration-block-properties-order    
+ 277:2   ×  Expected property "max-height" to come before property "min-height"                    declaration-block-properties-order    
+ 279:2   ×  Expected property "empty-cells" to come before property "table-layout"                 declaration-block-properties-order    
+ 280:2   ×  Expected property "caption-side" to come before property "empty-cells"                 declaration-block-properties-order    
+ 281:2   ×  Expected property "border-spacing" to come before property "caption-side"              declaration-block-properties-order    
+ 282:2   ×  Expected property "border-collapse" to come before property "border-spacing"           declaration-block-properties-order    
+ 284:2   ×  Expected property "font-family" to come before property "list-style"                   declaration-block-properties-order    
+ 287:2   ×  Expected property "font-style" to come before property "font-weight"                   declaration-block-properties-order    
+ 289:2   ×  Expected property "font-stretch" to come before property "font-variant"                declaration-block-properties-order    
+ 291:2   ×  Expected property "content" to come before property "line-height"                      declaration-block-properties-order    
+ 293:2   ×  Expected property "counter-increment" to come before property "counter-reset"          declaration-block-properties-order    
+ 297:7   ×  Expected indentation of 1 tab                                                          indentation                           
+ 300:2   ×  Expected property "text-decoration" to come before property "white-space"              declaration-block-properties-order    
+ 302:2   ×  Expected property "letter-spacing" to come before property "text-indent"               declaration-block-properties-order    
+ 304:2   ×  Expected property "text-transform" to come before property "word-spacing"              declaration-block-properties-order    
+ 305:2   ×  Expected property "-moz-tab-size" to come before property "text-transform"             declaration-block-properties-order    
+ 306:7   ×  Expected indentation of 1 tab                                                          indentation                           
+ 307:2   ×  Expected property "-webkit-hyphens" to come before property "tab-size"                 declaration-block-properties-order    
+ 308:6   ×  Expected property "-ms-hyphens" to come before property "-webkit-hyphens"              declaration-block-properties-order    
+ 308:6   ×  Expected indentation of 1 tab                                                          indentation                           
+ 309:10  ×  Expected indentation of 1 tab                                                          indentation                           
+ 310:2   ×  Expected property "color" to come before property "hyphens"                            declaration-block-properties-order    
+ 310:9   ×  Expected "#000" to be "#000000"                                                        color-hex-length                      
+ 311:2   ×  Expected property "background" to come before property "color"                         declaration-block-properties-order    
+ 314:2   ×  Expected property "border-image" to come before property "border-radius"               declaration-block-properties-order    
+ 316:2   ×  Expected property "box-shadow" to come before property "outline"                       declaration-block-properties-order    
+ 320:2   ×  Expected property "transform" to come before property "transition"                     declaration-block-properties-order    
+ 322:2   ×  Expected property "animation" to come before property "transform-origin"               declaration-block-properties-order    
+ 324:2   ×  Expected property "all" to come before property "animation"                            declaration-block-properties-order    
+ 327:5   ×  Expected property "-moz-column-count" to come before property "-webkit-column-count"   declaration-block-properties-order    
+ 327:5   ×  Expected indentation of 1 tab                                                          indentation                           
+ 328:10  ×  Expected indentation of 1 tab                                                          indentation                           
+ 330:5   ×  Expected property "-moz-column-fill" to come before property "-webkit-column-fill"     declaration-block-properties-order    
+ 330:5   ×  Expected indentation of 1 tab                                                          indentation                           
+ 331:10  ×  Expected indentation of 1 tab                                                          indentation                           
+ 333:5   ×  Expected property "-moz-column-gap" to come before property "-webkit-column-gap"       declaration-block-properties-order    
+ 333:5   ×  Expected indentation of 1 tab                                                          indentation                           
+ 334:10  ×  Expected indentation of 1 tab                                                          indentation                           
+ 336:5   ×  Expected property "-moz-column-rule" to come before property "-webkit-column-rule"     declaration-block-properties-order    
+ 336:5   ×  Expected indentation of 1 tab                                                          indentation                           
+ 337:10  ×  Expected indentation of 1 tab                                                          indentation                           
+ 339:5   ×  Expected property "-moz-column-span" to come before property "-webkit-column-span"     declaration-block-properties-order    
+ 339:5   ×  Expected indentation of 1 tab                                                          indentation                           
+ 340:10  ×  Expected indentation of 1 tab                                                          indentation                           
+ 342:5   ×  Expected property "-moz-column-width" to come before property "-webkit-column-width"   declaration-block-properties-order    
+ 342:5   ×  Expected indentation of 1 tab                                                          indentation                           
+ 343:10  ×  Expected indentation of 1 tab                                                          indentation                           
+ 345:5   ×  Expected property "-moz-columns" to come before property "-webkit-columns"             declaration-block-properties-order    
+ 345:5   ×  Expected indentation of 1 tab                                                          indentation                           
+ 346:10  ×  Expected indentation of 1 tab                                                          indentation
+
+1 source checked
+ c:\!Development\gulp-minimal-template\dist\css\main.css
+
+154 problems found
+ severity level "error": 154
+  string-quotes: 2
+  color-hex-length: 6
+  color-named: 1
+  function-calc-no-unspaced-operator: 4
+  value-list-comma-space-after: 1
+  selector-pseudo-element-colon-notation: 4
+  rule-non-nested-empty-line-before: 52
+  declaration-block-properties-order: 64
+  indentation: 20
+
