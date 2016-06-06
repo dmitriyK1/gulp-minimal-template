@@ -6,6 +6,8 @@
 
 // TODO: add sprites task
 
+// TODO: add iconfont task
+
 // TODO: Use gulp-if to conditionally load compression where needed
 //
 // add for css images inlining
