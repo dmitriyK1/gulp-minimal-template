@@ -27,6 +27,7 @@ import runSequence        from 'run-sequence'
 import del                from 'del'
 import lost               from 'lost'
 import rupture            from 'rupture'
+import typeUtils          from 'stylus-type-utils'
 import browserSync        from 'browser-sync'
 import eslintHtmlReporter from 'eslint-html-reporter'
 import poststylus         from 'poststylus'
@@ -115,6 +116,7 @@ gulp.task( 'styles', () =>
         .pipe( plugins.stylus({
             use: [
                   nib()
+                , typeUtils()
                 , poststylus([ 'lost', 'rucksack-css', 'postcss-position', 'postcss-normalize', 'postcss-cssnext', 'postcss-remove-prefixes', 'postcss-flexboxfixer', 'postcss-gradientfixer' ])
                 , rupture()
                   // poststylus([ 'rucksack-css', 'postcss-autoreset', 'postcss-initial', 'postcss-position', 'postcss-normalize', 'postcss-cssnext' ])
@@ -122,7 +124,7 @@ gulp.task( 'styles', () =>
             , 'include css': true
         }))
         // .pipe( postcss(postcssPlugins) )
-		.pipe( plugins.if(!isDebug, plugins.groupCssMediaQueries()) )
+        .pipe( plugins.if(!isDebug, plugins.groupCssMediaQueries()) )
         .pipe( plugins.csscomb() )
         .pipe( plugins.autoprefixer({ browsers: ['last 2 versions'] }) )
         .pipe( plugins.sourcemaps.write('.') )
