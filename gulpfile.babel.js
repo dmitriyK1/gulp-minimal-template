@@ -31,13 +31,23 @@ import typeUtils          from 'stylus-type-utils'
 import browserSync        from 'browser-sync'
 import eslintHtmlReporter from 'eslint-html-reporter'
 import poststylus         from 'poststylus'
-const posthtmlBemConfig = {
+
+const posthtmlBemSugarConfig = {
+        blockPrefix: '-',
         elemPrefix: '__',
-        modPrefix: '--',
-        modDlmtr: '_'
+        modPrefix: '_',
+        modDlmtr: '_',
 }
+
+const posthtmlBemConfig = {
+        elemPrefix: '__'
+      , modPrefix: '--'
+      , modDlmtr: '_'
+}
+
 const posthtmlPlugins = [
       require('posthtml-lorem')()
+    , require('posthtml-bem-sugar')( posthtmlBemSugarConfig )
     , require('posthtml-bem')( posthtmlBemConfig )
 ]
 

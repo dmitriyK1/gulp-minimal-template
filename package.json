@@ -64,6 +64,7 @@
     "postcss-remove-prefixes": "^1.1.0",
     "posthtml": "^0.8.1",
     "posthtml-bem": "^0.2.2",
+    "posthtml-bem-sugar": "^1.0.1",
     "posthtml-lorem": "^1.0.0",
     "poststylus": "^0.2.2",
     "rucksack-css": "^0.8.5",
