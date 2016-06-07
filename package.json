@@ -32,6 +32,7 @@
     "gulp-jshint": "^1.11.2",
     "gulp-jshint-file-reporter": "0.0.2",
     "gulp-load-plugins": "^1.2.0",
+    "gulp-log-capture": "0.0.6",
     "gulp-merge-media-queries": "^0.2.1",
     "gulp-minify-inline": "^0.1.1",
     "gulp-ng-annotate": "^1.1.0",

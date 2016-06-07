@@ -1,4 +1,8 @@
 @require 'nib'
+@import 'variables'
+
+$html-background = #CCC
+$test-background = #FFF
 
 // nib feature
 global-reset()
@@ -16,24 +20,23 @@ body
     outline 1px red solid
 
 .test
-    font-size 15rem
     // nib feature
     overflow ellipsis
+    font-size 15rem
+
+    .wrap &
+        background $test-background
+        appearance none
 
 *
 *:after
 *:before
-    outline none
-
-.test
-    .wrap &
-        background #FFF
-        appearance none
+    outline 0
 
 html
-    background-color #CCC
-    line-height 0.9
+    background-color $html-background
     font-size 2rem
+    line-height .9
 
 .bar
     position absolute 10px 20px 30px 40px

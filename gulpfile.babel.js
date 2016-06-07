@@ -49,12 +49,18 @@ const posthtmlPlugins = [
 // ]
 
 gulp.task('styles:lint', () => (
-	gulp.src(['dev/styles/**/*.styl'])
-		.pipe(plugins.stylint({
-			  reporter        : 'stylint-stylish'
+    gulp
+        .src(['dev/styles/main.styl'])
+        .pipe( plugins.plumber( plugins.plumberLogger ) )
+        .pipe( plugins.stylint({
+              config          : '.stylintrc'
+            , reporter        : 'stylint-stylish'
             , reporterOptions : { verbose: true }
-		}))
-		.pipe( plugins.stylint.reporter() )
+        }))
+        .pipe( plugins.logCapture.start(process.stdout, 'write') )
+        .pipe( plugins.stylint.reporter() )
+        .pipe( plugins.logCapture.stop('xml') )
+        .pipe( gulp.dest('reports/stylint') )
 ))
 
 gulp.task( 'scripts', () =>
