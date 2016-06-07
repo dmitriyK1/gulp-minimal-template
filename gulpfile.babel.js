@@ -15,6 +15,8 @@
 //
 // https://github.com/postcss/postcss-safe-parser
 
+require('babel-core/register')
+
 import fs                 from 'fs'
 import path               from 'path'
 import gulp               from 'gulp'
@@ -64,10 +66,6 @@ gulp.task( 'scripts', () =>
         .pipe( plugins.eslint({ fix: true }) )
         .pipe( plugins.eslint.format( eslintHtmlReporter, results => fs.writeFileSync(path.join(__dirname, 'reports/eslint.html'), results) ) )
         .pipe( plugins.eslint.format() )
-        .pipe( plugins.jshint('./.jshintrc') )
-        .pipe( plugins.jscsStylish.combineWithHintResults() )
-        .pipe( plugins.jshint.reporter('gulp-jshint-file-reporter'))
-        .pipe( plugins.jshint.reporter('jshint-stylish') )
         .pipe( plugins.ngAnnotate() )
         .pipe( plugins.sourcemaps.write('.') )
         .pipe( gulp.dest('./build/js') )
