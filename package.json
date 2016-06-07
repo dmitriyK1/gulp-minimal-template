@@ -43,7 +43,7 @@
     "gulp-rev-append": "^0.1.6",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-strip-debug": "^1.1.0",
-    "gulp-stylelint": "^2.0.2",
+    "gulp-stylint": "^3.0.0",
     "gulp-stylus": "^2.0.5",
     "gulp-task-listing": "^1.0.1",
     "gulp-uglify": "^1.5.1",
@@ -67,6 +67,7 @@
     "poststylus": "^0.2.2",
     "rucksack-css": "^0.8.5",
     "run-sequence": "^1.1.1",
-    "rupture": "^0.6.1"
+    "rupture": "^0.6.1",
+    "stylint-stylish": "^1.2.2"
   }
 }

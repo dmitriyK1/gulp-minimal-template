@@ -48,23 +48,14 @@ const posthtmlPlugins = [
     // , postcssPosition
 // ]
 
-gulp.task('lint-css', () =>
-  gulp
-    .src('./dist/css/**/*.css')
-    .pipe( plugins.plumber( plugins.plumberLogger ) )
-    .pipe(
-      plugins.stylelint({
-            reportOutputDir : 'reports'
-          , failAfterError  : false
-          , reporters: [{
-                formatter : 'verbose'
-              , save      : 'stylelint.txt'
-              , console   : false
-          }]
-      })
-    )
-)
-
+gulp.task('styles:lint', () => (
+	gulp.src(['dev/styles/**/*.styl'])
+		.pipe(plugins.stylint({
+			  reporter        : 'stylint-stylish'
+            , reporterOptions : { verbose: true }
+		}))
+		.pipe( plugins.stylint.reporter() )
+))
 
 gulp.task( 'scripts', () =>
     gulp
@@ -195,7 +186,7 @@ gulp.task( 'critical', () => critical.generate({
       , src    : 'index.html'
       , dest   : 'dist/index-critical.html'
       , width  : 1300
-        height : 900
+      , height : 900
   })
 )
 
@@ -218,14 +209,14 @@ gulp.task( 'build', () =>
             , 'styles'
           ]
             , 'rev'
-            , 'lint-css'
+            , 'styles:lint'
             , 'compress'
     )
 )
 
 gulp.task( 'watch', () => {
     gulp.watch( ['./dev/templates/**/*.jade' ], [ 'templates', 'rev', 'compress', browserSync.reload ] )
-    gulp.watch( ['./dev/styles/**/*.styl'    ], [ 'styles', 'compress'                               ] )
+    gulp.watch( ['./dev/styles/**/*.styl'    ], [ 'styles', 'styles:lint', 'compress'                ] )
     gulp.watch( ['./dev/scripts/js/**/*.js'  ], [ 'scripts', 'compress'                              ] )
 })
 
