@@ -64,24 +64,6 @@ gulp.task('lint-css', () =>
 )
 
 
-// gulp.task( 'jsx', () =>
-//     gulp
-//         .src('./dev/scripts/jsx#<{(||)}>#*.jsx')
-//         .pipe( plugins.plumber( log ) )
-//         .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
-//         .pipe( plugins.babel() )
-//         .pipe( plugins.ngAnnotate() )
-//         // .pipe( plugins.fixmyjs({ lookup: true }) )
-//         .pipe( plugins.jsbeautifier({ config: '.jsbeautifyrc' }) )
-//         .pipe( plugins.jshint('./.jshintrc') )
-//         .pipe( plugins.jscs({ fix: true }) )
-//         .pipe( plugins.jscsStylish.combineWithHintResults() )
-//         .pipe( plugins.jshint.reporter('jshint-stylish') )
-//         .pipe( plugins.eslint({ fix: true }) )
-//         .pipe( plugins.eslint.format() )
-//         .pipe( gulp.dest('./dist/js') )
-// )
-
 gulp.task( 'scripts', () =>
     gulp
         .src('./dev/scripts/js/init.js')
@@ -229,7 +211,6 @@ gulp.task( 'build', () =>
             , 'scripts'
             , 'templates'
             , 'styles'
-            // , 'jsx'
           ]
             , 'rev'
             , 'lint-css'
@@ -241,7 +222,6 @@ gulp.task( 'watch', () => {
     gulp.watch( ['./dev/templates/**/*.jade' ], [ 'templates', 'rev', 'compress', browserSync.reload ] )
     gulp.watch( ['./dev/styles/**/*.styl'    ], [ 'styles', 'compress', 'lint-css'                   ] )
     gulp.watch( ['./dev/scripts/js/**/*.js'  ], [ 'scripts', 'compress'                              ] )
-    // gulp.watch( ['./dev/jsx#<{(||)}>#*.jsx'      ], [ 'jsx', 'compress'                ] )
 })
 
 gulp.task( 'default', () =>
