@@ -48,20 +48,6 @@ const posthtmlPlugins = [
     // , postcssPosition
 // ]
 
-gulp.task('styles:lint', () => (
-    gulp
-        .src(['dev/styles/main.styl'])
-        .pipe( plugins.plumber( plugins.plumberLogger ) )
-        .pipe( plugins.stylint({
-              config          : '.stylintrc'
-            , reporter        : 'stylint-stylish'
-            , reporterOptions : { verbose: true }
-        }))
-        .pipe( plugins.logCapture.start(process.stdout, 'write') )
-        .pipe( plugins.stylint.reporter() )
-        .pipe( plugins.logCapture.stop('xml') )
-        .pipe( gulp.dest('reports/stylint') )
-))
 
 gulp.task( 'scripts', () =>
     gulp
@@ -143,6 +129,21 @@ gulp.task( 'styles', () =>
         .pipe( gulp.dest('./dist/css') )
         .pipe( browserSync.stream({ match: '**/*.css' }) )
 )
+
+gulp.task('styles:lint', () => (
+    gulp
+        .src(['dev/styles/main.styl'])
+        .pipe( plugins.plumber( plugins.plumberLogger ) )
+        .pipe( plugins.stylint({
+              config          : '.stylintrc'
+            , reporter        : 'stylint-stylish'
+            , reporterOptions : { verbose: true }
+        }))
+        .pipe( plugins.logCapture.start(process.stdout, 'write') )
+        .pipe( plugins.stylint.reporter() )
+        .pipe( plugins.logCapture.stop('xml') )
+        .pipe( gulp.dest('reports/stylint') )
+))
 
 gulp.task( 'clean', () => del.sync('dist/**/*') )
 
