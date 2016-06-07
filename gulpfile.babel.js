@@ -64,7 +64,7 @@ gulp.task( 'scripts', () =>
         .pipe( plugins.jsbeautifier({ config: '.jsbeautifyrc' }) )
         .pipe( plugins.jscs({ fix: true }) )
         .pipe( plugins.eslint({ fix: true }) )
-        .pipe( plugins.eslint.format( eslintHtmlReporter, results => fs.writeFileSync(path.join(__dirname, 'reports/eslint.html'), results) ) )
+        .pipe( plugins.eslint.format( eslintHtmlReporter, results => fs.writeFileSync(path.join(__dirname, 'reports/eslint.html'), results) ))
         .pipe( plugins.eslint.format() )
         .pipe( plugins.ngAnnotate() )
         .pipe( plugins.sourcemaps.write('.') )
