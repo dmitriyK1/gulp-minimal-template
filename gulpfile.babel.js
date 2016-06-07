@@ -1,3 +1,5 @@
+// TODO: update all dependencies to the most recent versions
+
 // TODO: add something from https://github.com/CSSSR/csssr-project-template
 
 // TODO: split config into separate task files
@@ -20,6 +22,7 @@ import path               from 'path'
 import gulp               from 'gulp'
 const plugins             = require('gulp-load-plugins')()
 const isProduction        = plugins.util.env.p
+import nib                from 'nib'
 import critical           from 'critical'
 import runSequence        from 'run-sequence'
 import del                from 'del'
@@ -55,7 +58,7 @@ gulp.task('lint-css', () =>
             reportOutputDir : 'reports'
           , failAfterError  : false
           , reporters: [{
-              formatter : 'verbose'
+                formatter : 'verbose'
               , save      : 'stylelint.txt'
               , console   : false
           }]
@@ -129,10 +132,12 @@ gulp.task( 'styles', () =>
         .pipe( plugins.sourcemaps.init() )
         .pipe( plugins.stylus({
             use: [
-                // poststylus([ 'rucksack-css', 'postcss-autoreset', 'postcss-initial', 'postcss-position', 'postcss-normalize', 'postcss-cssnext' ])
-                  rupture()
+                  nib()
                 , poststylus([ 'lost', 'rucksack-css', 'postcss-position', 'postcss-normalize', 'postcss-cssnext', 'postcss-remove-prefixes', 'postcss-flexboxfixer', 'postcss-gradientfixer' ])
+                , rupture()
+                  // poststylus([ 'rucksack-css', 'postcss-autoreset', 'postcss-initial', 'postcss-position', 'postcss-normalize', 'postcss-cssnext' ])
             ]
+            , 'include css': true
         }))
         // .pipe( postcss(postcssPlugins) )
         .pipe( plugins.csscomb() )
@@ -220,7 +225,7 @@ gulp.task( 'build', () =>
 
 gulp.task( 'watch', () => {
     gulp.watch( ['./dev/templates/**/*.jade' ], [ 'templates', 'rev', 'compress', browserSync.reload ] )
-    gulp.watch( ['./dev/styles/**/*.styl'    ], [ 'styles', 'compress', 'lint-css'                   ] )
+    gulp.watch( ['./dev/styles/**/*.styl'    ], [ 'styles', 'compress'                               ] )
     gulp.watch( ['./dev/scripts/js/**/*.js'  ], [ 'scripts', 'compress'                              ] )
 })
 
