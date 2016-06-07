@@ -33,8 +33,8 @@ import eslintHtmlReporter from 'eslint-html-reporter'
 import poststylus         from 'poststylus'
 const posthtmlBemConfig = {
         elemPrefix: '__',
-        modPrefix: '_',
-        modDlmtr: '--'
+        modPrefix: '--',
+        modDlmtr: '_'
 }
 const posthtmlPlugins = [
       require('posthtml-lorem')()
@@ -54,7 +54,7 @@ gulp.task( 'scripts', () =>
     gulp
         .src('./dev/scripts/js/init.js')
         .pipe( plugins.plumber( plugins.plumberLogger ) )
-        .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
+        .pipe( plugins.changed( './build/js', { extension: '.js' } ) )
         .pipe( plugins.sourcemaps.init() )
         .pipe( plugins.babel() )
         .pipe(plugins.fixmyjs({
@@ -76,14 +76,14 @@ gulp.task( 'scripts', () =>
         .pipe( plugins.jshint.reporter('jshint-stylish') )
         .pipe( plugins.ngAnnotate() )
         .pipe( plugins.sourcemaps.write('.') )
-        .pipe( gulp.dest('./dist/js') )
+        .pipe( gulp.dest('./build/js') )
 )
 
 gulp.task( 'templates', () =>
     gulp
         .src('./dev/templates/pages/**/*.jade')
         .pipe( plugins.plumber( plugins.plumberLogger ) )
-        .pipe( plugins.changed( './dist', { extension: '.html' } ) )
+        .pipe( plugins.changed( './build', { extension: '.html' } ) )
         .pipe( plugins.jade({ pretty: true }) )
         .pipe( plugins.posthtml( posthtmlPlugins ) )
         .pipe(
@@ -97,21 +97,21 @@ gulp.task( 'templates', () =>
                 , preserve_newlines : true
             })
         )
-        .pipe( gulp.dest('./dist') )
+        .pipe( gulp.dest('./build') )
 )
 
 gulp.task('rev', () =>
     gulp
-    .src('./dist/*.html')
+    .src('./build/*.html')
     .pipe( plugins.revAppend() )
-    .pipe( gulp.dest('./dist/') )
+    .pipe( gulp.dest('./build/') )
 )
 
 gulp.task( 'styles', () =>
     gulp
         .src('./dev/styles/main.styl')
         .pipe( plugins.plumber( plugins.plumberLogger ) )
-        .pipe( plugins.changed( './dist/css', { extension: '.css' } ) )
+        .pipe( plugins.changed( './build/css', { extension: '.css' } ) )
         .pipe( plugins.sourcemaps.init() )
         .pipe( plugins.stylus({
             use: [
@@ -128,7 +128,7 @@ gulp.task( 'styles', () =>
         .pipe( plugins.csscomb() )
         .pipe( plugins.autoprefixer({ browsers: ['last 2 versions'] }) )
         .pipe( plugins.sourcemaps.write('.') )
-        .pipe( gulp.dest('./dist/css') )
+        .pipe( gulp.dest('./build/css') )
         .pipe( browserSync.stream({ match: '**/*.css' }) )
 )
 
@@ -147,11 +147,11 @@ gulp.task('styles:lint', () => (
         .pipe( gulp.dest('reports/stylint') )
 ))
 
-gulp.task( 'clean', () => del.sync('dist/**/*') )
+gulp.task( 'clean', () => del.sync('build/**/*') )
 
 gulp.task('serve', () =>
     browserSync.init({
-          server          : { baseDir: 'dist' }
+          server          : { baseDir: 'build' }
         , reloadOnRestart : true
         , open            : true
         , notify          : false
@@ -164,21 +164,21 @@ gulp.task( 'compress', () => {
     if( !isProduction ) return
 
     gulp
-        .src('dist/js/*.js')
+        .src('build/js/*.js')
         .pipe( plugins.plumber( plugins.plumberLogger ) )
         .pipe( plugins.stripDebug() )
         .pipe( plugins.uglify({ mangle: true }) )
-        .pipe( gulp.dest('dist/js') )
+        .pipe( gulp.dest('build/js') )
 
     gulp
-        .src('dist/*.html')
+        .src('build/*.html')
         .pipe( plugins.plumber( plugins.plumberLogger ) )
         .pipe( plugins.htmlmin({ collapseWhitespace: true }) )
         .pipe( plugins.minifyInline() )
-        .pipe( gulp.dest('dist') )
+        .pipe( gulp.dest('build') )
 
     gulp
-        .src('dist/css/*.css')
+        .src('build/css/*.css')
         .pipe( plugins.plumber( plugins.plumberLogger ) )
         .pipe( plugins.mergeMediaQueries() )
         .pipe( plugins.csso() )
@@ -186,14 +186,14 @@ gulp.task( 'compress', () => {
                 discardComments: { removeAll: true }
             })
         )
-        .pipe( gulp.dest('dist/css') )
+        .pipe( gulp.dest('build/css') )
 })
 
 gulp.task( 'critical', () => critical.generate({
         inline : true
-      , base   : 'dist/'
+      , base   : 'build/'
       , src    : 'index.html'
-      , dest   : 'dist/index-critical.html'
+      , dest   : 'build/index-critical.html'
       , width  : 1300
       , height : 900
   })
@@ -202,8 +202,8 @@ gulp.task( 'critical', () => critical.generate({
 gulp.task( 'copy', () =>
   gulp
     .src('dev/assets/**/*')
-    .pipe( plugins.changed('dist') )
-    .pipe( gulp.dest('dist') )
+    .pipe( plugins.changed('build') )
+    .pipe( gulp.dest('build') )
 )
 
 gulp.task( 'help', plugins.taskListing )
