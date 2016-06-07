@@ -1,5 +1,3 @@
-// TODO: update all dependencies to the most recent versions
-
 // TODO: add something from https://github.com/CSSSR/csssr-project-template
 
 // TODO: split config into separate task files
@@ -10,7 +8,7 @@
 
 // TODO: add iconfont task
 
-// TODO: Use gulp-if to conditionally load compression where needed
+// TODO: Use gulp-if for development/production
 //
 // add for css images inlining
 // TODO: https://github.com/assetsjs/postcss-assets
@@ -22,6 +20,7 @@ import path               from 'path'
 import gulp               from 'gulp'
 const plugins             = require('gulp-load-plugins')()
 const isProduction        = plugins.util.env.p
+const isDebug             = process.env.NODE_ENV !== 'production'
 import nib                from 'nib'
 import critical           from 'critical'
 import runSequence        from 'run-sequence'
@@ -29,7 +28,7 @@ import del                from 'del'
 import lost               from 'lost'
 import rupture            from 'rupture'
 import browserSync        from 'browser-sync'
-import eslintHtmlReporter from 'eslint-html-reporter';
+import eslintHtmlReporter from 'eslint-html-reporter'
 import poststylus         from 'poststylus'
 const posthtmlBemConfig = {
         elemPrefix: '__',
@@ -52,7 +51,7 @@ const posthtmlPlugins = [
 gulp.task('lint-css', () =>
   gulp
     .src('./dist/css/**/*.css')
-    .pipe( plugins.plumber( log ) )
+    .pipe( plugins.plumber( plugins.plumberLogger ) )
     .pipe(
       plugins.stylelint({
             reportOutputDir : 'reports'
@@ -70,7 +69,7 @@ gulp.task('lint-css', () =>
 gulp.task( 'scripts', () =>
     gulp
         .src('./dev/scripts/js/init.js')
-        .pipe( plugins.plumber( log ) )
+        .pipe( plugins.plumber( plugins.plumberLogger ) )
         .pipe( plugins.changed( './dist/js', { extension: '.js' } ) )
         .pipe( plugins.sourcemaps.init() )
         .pipe( plugins.babel() )
@@ -99,7 +98,7 @@ gulp.task( 'scripts', () =>
 gulp.task( 'templates', () =>
     gulp
         .src('./dev/templates/pages/**/*.jade')
-        .pipe( plugins.plumber( log ) )
+        .pipe( plugins.plumber( plugins.plumberLogger ) )
         .pipe( plugins.changed( './dist', { extension: '.html' } ) )
         .pipe( plugins.jade({ pretty: true }) )
         .pipe( plugins.posthtml( posthtmlPlugins ) )
@@ -127,7 +126,7 @@ gulp.task('rev', () =>
 gulp.task( 'styles', () =>
     gulp
         .src('./dev/styles/main.styl')
-        .pipe( plugins.plumber( log ) )
+        .pipe( plugins.plumber( plugins.plumberLogger ) )
         .pipe( plugins.changed( './dist/css', { extension: '.css' } ) )
         .pipe( plugins.sourcemaps.init() )
         .pipe( plugins.stylus({
@@ -140,6 +139,7 @@ gulp.task( 'styles', () =>
             , 'include css': true
         }))
         // .pipe( postcss(postcssPlugins) )
+		.pipe( plugins.if(!isDebug, plugins.groupCssMediaQueries()) )
         .pipe( plugins.csscomb() )
         .pipe( plugins.autoprefixer({ browsers: ['last 2 versions'] }) )
         .pipe( plugins.sourcemaps.write('.') )
@@ -165,21 +165,21 @@ gulp.task( 'compress', () => {
 
     gulp
         .src('dist/js/*.js')
-        .pipe( plugins.plumber( log ) )
+        .pipe( plugins.plumber( plugins.plumberLogger ) )
         .pipe( plugins.stripDebug() )
         .pipe( plugins.uglify({ mangle: true }) )
         .pipe( gulp.dest('dist/js') )
 
     gulp
         .src('dist/*.html')
-        .pipe( plugins.plumber( log ) )
+        .pipe( plugins.plumber( plugins.plumberLogger ) )
         .pipe( plugins.htmlmin({ collapseWhitespace: true }) )
         .pipe( plugins.minifyInline() )
         .pipe( gulp.dest('dist') )
 
     gulp
         .src('dist/css/*.css')
-        .pipe( plugins.plumber( log ) )
+        .pipe( plugins.plumber( plugins.plumberLogger ) )
         .pipe( plugins.mergeMediaQueries() )
         .pipe( plugins.csso() )
         .pipe( plugins.cssnano({
@@ -236,21 +236,3 @@ gulp.task( 'default', () =>
     , 'watch'
   )
 )
-
-// ================================================================================
-// HELPER FUNCTIONS
-// ================================================================================
-
-function log( e ) {
-    console.log([
-        ''
-        , '----------ERROR MESSAGE START----------'
-        , `Error in plugin: ${e.plugin}`,
-        , `Error type: ${e.name}`
-        , `Reason: ${e.message}`
-        , '----------ERROR MESSAGE END----------'
-        ,''
-    ].join('\n'))
-
-    this.end()
-}
