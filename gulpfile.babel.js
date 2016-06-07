@@ -138,7 +138,7 @@ gulp.task('styles:lint', () => (
         .pipe( gulp.dest('reports/stylint') )
 ))
 
-gulp.task( 'clean', () => del.sync('build/**/*') )
+gulp.task( 'clean', () => del.sync([ 'build/**/*', 'reports/**/*' ]) )
 
 gulp.task('serve', () =>
     browserSync.init({
