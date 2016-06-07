@@ -32,13 +32,6 @@ import browserSync        from 'browser-sync'
 import eslintHtmlReporter from 'eslint-html-reporter'
 import poststylus         from 'poststylus'
 
-const posthtmlBemSugarConfig = {
-        blockPrefix: '-',
-        elemPrefix: '__',
-        modPrefix: '_',
-        modDlmtr: '_',
-}
-
 const posthtmlBemConfig = {
         elemPrefix: '__'
       , modPrefix: '--'
@@ -47,7 +40,7 @@ const posthtmlBemConfig = {
 
 const posthtmlPlugins = [
       require('posthtml-lorem')()
-    , require('posthtml-bem-sugar')( posthtmlBemSugarConfig )
+    , require('posthtml-bem-sugar')()
     , require('posthtml-bem')( posthtmlBemConfig )
 ]
 
