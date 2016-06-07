@@ -1,4 +1,5 @@
 {
     "preset": "idiomatic",
-    "validateQuoteMarks": "'"
+    "validateQuoteMarks": "'",
+    "excludeFiles": ["node_modules/**", "bower_components/**"]
 }

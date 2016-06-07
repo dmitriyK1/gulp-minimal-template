@@ -48,7 +48,7 @@ const posthtmlPlugins = [
 
 gulp.task( 'scripts', () =>
     gulp
-        .src('./dev/scripts/js/init.js')
+        .src('./dev/scripts/index.js')
         .pipe( plugins.plumber( plugins.plumberLogger ) )
         .pipe( plugins.changed( './build/js', { extension: '.js' } ) )
         .pipe( plugins.sourcemaps.init() )
