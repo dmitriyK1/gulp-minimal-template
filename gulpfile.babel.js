@@ -201,7 +201,7 @@ gulp.task( 'critical', () => critical.generate({
 
 gulp.task( 'copy', () =>
   gulp
-    .src('dev/resources/**/*')
+    .src('dev/assets/**/*')
     .pipe( plugins.changed('dist') )
     .pipe( gulp.dest('dist') )
 )
