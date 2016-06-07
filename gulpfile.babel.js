@@ -51,15 +51,6 @@ const posthtmlPlugins = [
     , require('posthtml-bem')( posthtmlBemConfig )
 ]
 
-// const postcss         = require('gulp-postcss')
-// const postcssInitial  = require('postcss-initial')
-// const postcssPosition = require('postcss-position')
-// const postcssPlugins  = [
-    // postcssInitial
-    // , postcssPosition
-// ]
-
-
 gulp.task( 'scripts', () =>
     gulp
         .src('./dev/scripts/js/init.js')
@@ -133,7 +124,6 @@ gulp.task( 'styles', () =>
             ]
             , 'include css': true
         }))
-        // .pipe( postcss(postcssPlugins) )
         .pipe( plugins.if(!isDebug, plugins.groupCssMediaQueries()) )
         .pipe( plugins.csscomb() )
         .pipe( plugins.autoprefixer({ browsers: ['last 2 versions'] }) )
