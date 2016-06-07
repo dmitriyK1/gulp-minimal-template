@@ -126,7 +126,7 @@ gulp.task( 'styles', () =>
         }))
         .pipe( plugins.if(!isDebug, plugins.groupCssMediaQueries()) )
         .pipe( plugins.csscomb() )
-        .pipe( plugins.autoprefixer({ browsers: ['last 2 versions'] }) )
+        .pipe( plugins.autoprefixer() )
         .pipe( plugins.sourcemaps.write('.') )
         .pipe( gulp.dest('./build/css') )
         .pipe( browserSync.stream({ match: '**/*.css' }) )
