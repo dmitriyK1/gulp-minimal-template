@@ -1,5 +1,6 @@
 @require 'nib'
-@import 'variables'
+@import  'variables'
+@import  'mixins/**/*'
 
 // stylus-type-utils setting
 base-font-size = 75%
@@ -28,14 +29,24 @@ body
     lost-utility edit
     outline 1px red solid
 
-.test
-    // nib feature
-    overflow ellipsis
-    font-size 15rem
+.triangle
+    vcenter()
+    triangle(up-left, 2em, red)
 
     .wrap &
         background $test-background
         appearance none
+
+.ellipsis
+    // nib feature
+    overflow ellipsis
+
+    // translate mixin
+    t-scale(1.2)
+
+    font-size 15rem
+    // longshadow mixin
+    longshadow(text, yellow, 50)
 
 *
 *:after
@@ -51,7 +62,10 @@ html
     position absolute 10px 20px 30px 40px
 
 .responsive
+    // rucksack-css feature
     font-size responsive
+    // translate mixin
+    t(20px)
 
 a
     all initial
