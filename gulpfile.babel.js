@@ -1,6 +1,4 @@
 
-// TODO: use autoprefixer as a separate plugin (not post-css)
-
 // TODO: add documentation for features included
 
 // TODO: add something from https://github.com/CSSSR/csssr-project-template
