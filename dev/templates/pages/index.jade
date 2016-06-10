@@ -1,45 +1,13 @@
-<!DOCTYPE html>
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        title Document
-        link(href="css/main.css?rev=@@hash" rel="stylesheet")
-    body
+extends ../layouts/default
 
-        .container
-            div.el 1
-            div.el 2
-            div.el 3
-            div.el 4
+block head
+	- var pageTitle       = 'Template'
+	- var pageDescription = ''
+	- var pageKeywords    = ''
 
-        h1 Hello world
+block scripts
+	+script(['js/index.js?rev=@@hash'])
 
-        h1
-            | postHTML BEM sugar test
-        ul.-list
-            li.__item list item
-            li.__item._active_true list item active
+block content
+	include ../blocks/main
 
-        img(src="http://www.planwallpaper.com/static/images/magic-of-blue-universe-images.jpg")
-
-        i testing jade compile via gulp build system
-
-        h3.responsive This header is fully responsive text via font-size: responsive ( rucksack-css feature )
-
-        p(lorem="3")
-
-        .triangle
-
-        .ellipsis Testing overflow ellipsis
-
-        section
-            lorem(size="3")
-
-        div(block='animals')
-            | posthml-bem test
-            div(elem='rabbit' mods='type:scurrying color:white')
-            div(elem='dormouse' mods='type:sleeper color:red')
-
-        script(src="js/index.js?rev=@@hash")
-
-        h1 #[span hello] #[span world]
