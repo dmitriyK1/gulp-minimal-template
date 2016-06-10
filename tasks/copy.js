@@ -1,7 +1,6 @@
 gulp.task( 'copy', () =>
   gulp
-    .src('dev/assets/**/*')
-    .pipe( plugins.changed('build') )
-    .pipe( gulp.dest('build') )
+    .src( paths.copy.src )
+    .pipe( plugins.changed( paths.build ) )
+    .pipe( gulp.dest( paths.build ) )
 )
-

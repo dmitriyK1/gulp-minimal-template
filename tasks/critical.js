@@ -2,9 +2,9 @@ import critical from 'critical'
 
 gulp.task( 'critical', () => critical.generate({
         inline : true
-      , base   : 'build/'
-      , src    : 'index.html'
-      , dest   : 'build/index-critical.html'
+      , base   : paths.build
+      , src    : paths.critical.src
+      , dest   : paths.critical.dest
       , width  : 1300
       , height : 900
   })

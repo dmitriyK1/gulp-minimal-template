@@ -1,4 +1,4 @@
-import del  from 'del'
+import del from 'del'
 
-gulp.task( 'clean', () => del.sync([ 'build/**/*', 'reports/**/*' ]) )
+gulp.task( 'clean', () => del.sync( paths.clean ) )
 

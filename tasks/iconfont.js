@@ -1,5 +1,3 @@
-// paths       = require '../paths.coffee'
-
 gulp.task( 'iconfont', () =>
     gulp
         .src('dev/iconfont')

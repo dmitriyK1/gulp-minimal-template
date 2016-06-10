@@ -12,9 +12,9 @@ const posthtmlPlugins = [
 
 gulp.task( 'templates', () =>
     gulp
-        .src('./dev/templates/pages/**/*.jade')
+        .src( paths.templates.src )
         .pipe( plugins.plumber( plugins.plumberLogger ) )
-        .pipe( plugins.changed( './build', { extension: '.html' } ) )
+        .pipe( plugins.changed( paths.build, { extension: '.html' } ) )
         .pipe( plugins.jade({ pretty: true }) )
         .pipe( plugins.posthtml( posthtmlPlugins ) )
         .pipe(
@@ -28,5 +28,5 @@ gulp.task( 'templates', () =>
                 , preserve_newlines : true
             })
         )
-        .pipe( gulp.dest('./build') )
+        .pipe( gulp.dest(paths.build) )
 )

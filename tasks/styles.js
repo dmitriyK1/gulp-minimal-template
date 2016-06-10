@@ -4,13 +4,13 @@ import rupture     from 'rupture'
 import typeUtils   from 'stylus-type-utils'
 import poststylus  from 'poststylus'
 import browserSync from 'browser-sync'
-const isDebug     = process.env.NODE_ENV !== 'production'
+const isDebug = process.env.NODE_ENV !== 'production'
 
 gulp.task( 'styles', () =>
     gulp
-        .src('./dev/styles/main.styl')
+        .src( paths.styles.src )
         .pipe( plugins.plumber( plugins.plumberLogger ) )
-        .pipe( plugins.changed( './build/css', { extension: '.css' } ) )
+        .pipe( plugins.changed( paths.styles.dest, { extension: '.css' } ) )
         .pipe( plugins.sourcemaps.init() )
         .pipe( plugins.stylus({
             use: [
@@ -26,7 +26,6 @@ gulp.task( 'styles', () =>
         .pipe( plugins.csscomb() )
         .pipe( plugins.autoprefixer() )
         .pipe( plugins.sourcemaps.write('.') )
-        .pipe( gulp.dest('./build/css') )
+        .pipe( gulp.dest( paths.styles.dest ) )
         .pipe( browserSync.stream({ match: '**/*.css' }) )
 )
-

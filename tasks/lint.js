@@ -2,7 +2,7 @@
 
 gulp.task('styles:lint', () => (
     gulp
-        .src(['dev/styles/main.styl'])
+        .src( paths.stylesLint.src )
         .pipe( plugins.plumber( plugins.plumberLogger ) )
         .pipe( plugins.stylint({
               config          : '.stylintrc'
@@ -12,6 +12,5 @@ gulp.task('styles:lint', () => (
         .pipe( plugins.logCapture.start(process.stdout, 'write') )
         .pipe( plugins.stylint.reporter() )
         .pipe( plugins.logCapture.stop('xml') )
-        .pipe( gulp.dest('reports/stylint') )
+        .pipe( gulp.dest( paths.stylesLint.dest ) )
 ))
-
