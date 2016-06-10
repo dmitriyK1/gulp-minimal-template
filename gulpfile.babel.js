@@ -4,6 +4,8 @@
 
 // TODO: add sprites task
 
+// TODO: create paths file for all literal values
+
 // TODO: Use gulp-if for development/production
 //
 // add for css images inlining
