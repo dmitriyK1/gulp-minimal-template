@@ -1,3 +1,5 @@
+// add here all linting tasks / combine with compilation
+
 gulp.task('styles:lint', () => (
     gulp
         .src(['dev/styles/main.styl'])

@@ -1,3 +1,5 @@
+import critical from 'critical'
+
 gulp.task( 'critical', () => critical.generate({
         inline : true
       , base   : 'build/'

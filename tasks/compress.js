@@ -1,4 +1,4 @@
-const isProduction        = plugins.util.env.p
+const isProduction = plugins.util.env.p
 
 gulp.task( 'compress', () => {
     if( !isProduction ) return

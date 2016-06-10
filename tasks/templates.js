@@ -30,4 +30,3 @@ gulp.task( 'templates', () =>
         )
         .pipe( gulp.dest('./build') )
 )
-

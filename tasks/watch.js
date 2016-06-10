@@ -1,3 +1,5 @@
+import browserSync from 'browser-sync'
+
 gulp.task( 'watch', () => {
     gulp.watch( ['./dev/templates/**/*.jade' ], [ 'templates', 'rev', 'compress', browserSync.reload ] )
     gulp.watch( ['./dev/styles/**/*.styl'    ], [ 'styles', 'styles:lint', 'compress'                ] )

@@ -1,3 +1,5 @@
+import runSequence from 'run-sequence'
+
 gulp.task( 'build', () =>
     runSequence(
           [
