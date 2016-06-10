@@ -1,8 +1,10 @@
 // TODO: add documentation for features included
+// TODO: add use cases of features on page in separate sections
 
 // TODO: add webpack
 
 // TODO: add sprites task
+
 // TODO: add svg sprites task
 
 // TODO: Use gulp-if for development/production
