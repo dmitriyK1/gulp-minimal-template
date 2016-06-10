@@ -15,7 +15,7 @@ gulp.task( 'templates', () =>
         .src( paths.templates.src )
         .pipe( plugins.plumber( plugins.plumberLogger ) )
         .pipe( plugins.changed( paths.build, { extension: '.html' } ) )
-        .pipe( plugins.jade({ pretty: true }) )
+        .pipe( plugins.jade({ basedir: process.cwd(), pretty: true }) )
         .pipe( plugins.posthtml( posthtmlPlugins ) )
         .pipe(
             plugins.prettify({

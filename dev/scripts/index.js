@@ -1,16 +1,25 @@
-import currentTimestamp from 'lib';
+import svg4everybody    from 'svg4everybody';
+import $                from 'jquery';
+import flow             from 'lodash/fp/flow';
+import map              from 'lodash/fp/map';
+import flatten          from 'lodash/fp/flatten';
+import sortBy           from 'lodash/fp/sortBy';
 
-const message = 'hello world';
+var result = flow(
 
-let test = function() {
-  console.info(message)
-};
+  map( x => [x, x * 2] ),
 
-test();
+  flatten,
 
-let getDate = () => new Date;
+  sortBy( x => x )
 
-console.log(getDate());
+)([ 1, 2, 3 ]);
+
+console.log( result);
+
+$(() => {
+	svg4everybody();
+});
 
 /* @ngInject */
 function testNgAnnotate($log) {}
