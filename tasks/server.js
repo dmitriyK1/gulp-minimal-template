@@ -1,6 +1,6 @@
 import browserSync from 'browser-sync'
 
-gulp.task('serve', () =>
+gulp.task( 'serve', () =>
     browserSync.init({
           server          : { baseDir: paths.build }
         , reloadOnRestart : true
@@ -10,4 +10,3 @@ gulp.task('serve', () =>
         , watchOptions    : { ignored: '*.map' }
     })
 )
-

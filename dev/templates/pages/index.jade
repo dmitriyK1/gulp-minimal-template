@@ -1,13 +1,14 @@
+//- do not write code here (including mixins), only vars / includes
+
 extends ../layouts/default
 
-block head
+block prepend head
 	- var pageTitle       = 'Template'
 	- var pageDescription = ''
 	- var pageKeywords    = ''
 
-block scripts
+append scripts
 	+script(['js/index.js?rev=@@hash'])
 
-block content
+append content
 	include ../blocks/main
-
