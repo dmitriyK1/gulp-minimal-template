@@ -16,9 +16,21 @@ gulp.task( 'styles', () =>
             use: [
                   nib()
                 , typeUtils()
-                , poststylus([ 'lost', 'rucksack-css', 'postcss-position', 'postcss-normalize', 'postcss-cssnext', 'postcss-remove-prefixes', 'postcss-flexboxfixer', 'postcss-gradientfixer' ])
                 , rupture()
-                  // poststylus([ 'rucksack-css', 'postcss-autoreset', 'postcss-initial', 'postcss-position', 'postcss-normalize', 'postcss-cssnext' ])
+                , poststylus([
+                      'lost'
+                    , 'rucksack-css'
+                    , 'postcss-position'
+                    , 'postcss-normalize'
+                    , 'stylehacks'
+                    , 'postcss-unprefix'
+                    , 'postcss-flexboxfixer'
+                    , 'postcss-gradientfixer'
+                    , 'postcss-remove-prefixes'
+                    , 'postcss-cssnext'
+                    , 'postcss-discard-duplicates'
+                    // , 'postcss-autoreset'
+                ])
             ]
             , 'include css': true
         }))
