@@ -24,7 +24,6 @@ gulp.task( 'styles', () =>
         }))
         .pipe( plugins.if(!isDebug, plugins.groupCssMediaQueries()) )
         .pipe( plugins.csscomb() )
-        .pipe( plugins.autoprefixer() )
         .pipe( plugins.sourcemaps.write('.') )
         .pipe( gulp.dest( paths.styles.dest ) )
         .pipe( browserSync.stream({ match: '**/*.css' }) )
