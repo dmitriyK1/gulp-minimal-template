@@ -18,8 +18,8 @@ gulp.task( 'styles', () =>
                 , rupture()
                 , poststylus([
                       'lost'
-                    , 'postcss-focus'
                     , 'postcss-pseudoelements'
+                    , 'postcss-focus'
                     , 'postcss-fakeid'
                     , 'rucksack-css'
                     , 'postcss-position'
