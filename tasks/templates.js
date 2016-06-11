@@ -1,13 +1,6 @@
-const posthtmlBemConfig = {
-        elemPrefix: '__'
-      , modPrefix: '--'
-      , modDlmtr: '_'
-}
-
 const posthtmlPlugins = [
       require('posthtml-lorem')()
     , require('posthtml-bem-sugar')()
-    , require('posthtml-bem')( posthtmlBemConfig )
 ]
 
 gulp.task( 'templates', () =>
