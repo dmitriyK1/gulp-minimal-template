@@ -1,3 +1,5 @@
+// TODO: add something from https://medium.com/evil-martians/postcss-2nd-birthday-2c76c223c78f#.6n345sb0p
+
 // TODO: add something from https://github.com/tars/tars
 
 // TODO: ??? add iconfont template as npm package
@@ -18,6 +20,7 @@
   // background: inline('images/foobar.png');
 
 // https://github.com/postcss/postcss-safe-parser
+// https://github.com/purifycss/gulp-purifycss
 
 require('babel-core/register')
 
