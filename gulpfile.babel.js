@@ -1,5 +1,10 @@
 // TODO: add something from https://medium.com/evil-martians/postcss-2nd-birthday-2c76c223c78f#.6n345sb0p
 
+// http://chouchenn.switch.paris/
+// http://kouto-swiss.io/docs.html
+// http://axis.netlify.com/
+// https://github.com/niallobrien/stylus-ui
+
 // TODO: add something from https://github.com/tars/tars
 
 // TODO: ??? add iconfont template as npm package
