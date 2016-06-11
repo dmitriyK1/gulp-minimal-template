@@ -1,8 +1,8 @@
-gulp.task( 'deploy:github', () => (
+gulp.task( 'deploy:github', () =>
 	gulp
 	    .src([ 'build/**/*' ])
-	    .pipe( plugins.ghPages({ branch: 'dist' }) )
-))
+	    .pipe( plugins.ghPages({ branch: 'gh-pages' }) )
+)
 
 gulp.task( 'deploy:surge', () =>
     plugins.surge({

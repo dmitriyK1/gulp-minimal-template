@@ -2,6 +2,8 @@
 
 // TODO: ??? add iconfont template as npm package
 
+// TODO: ??? promisify deploy:surge
+
 // TODO: add documentation for features included
 // TODO: add use cases of features on page in separate sections
 
