@@ -68,7 +68,6 @@
     "postcss-position": "^0.4.0",
     "postcss-remove-prefixes": "^1.1.0",
     "posthtml": "^0.8.1",
-    "posthtml-bem-sugar": "^1.0.1",
     "posthtml-lorem": "^1.0.0",
     "poststylus": "^0.2.2",
     "require-dir": "^0.3.0",

@@ -1,6 +1,5 @@
 const posthtmlPlugins = [
       require('posthtml-lorem')()
-    , require('posthtml-bem-sugar')()
 ]
 
 gulp.task( 'templates', () =>
