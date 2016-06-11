@@ -1,7 +1,6 @@
 import nib         from 'nib'
-import lost        from 'lost'
-import rupture     from 'rupture'
 import typeUtils   from 'stylus-type-utils'
+import rupture     from 'rupture'
 import poststylus  from 'poststylus'
 import browserSync from 'browser-sync'
 const isDebug = process.env.NODE_ENV !== 'production'

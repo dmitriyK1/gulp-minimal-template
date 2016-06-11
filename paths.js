@@ -44,4 +44,9 @@ module.exports = {
         , scripts   : ['./dev/scripts/js/**/*.js'  ]
     }
 
+    , doiuse: {
+          src    : 'build/css/**/*.css'
+        , report : 'reports/doiuse.txt'
+    }
+
 }
