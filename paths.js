@@ -10,8 +10,7 @@ module.exports = {
     }
 
     , critical: {
-          src  : 'index.html'
-        , dest : 'build/index-critical.html'
+          src  : 'build/*.html'
     }
 
     , stylesLint: {
