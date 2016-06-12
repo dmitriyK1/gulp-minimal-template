@@ -7,6 +7,11 @@
 
 // TODO: add something from https://github.com/tars/tars
 
+// TODO: postcss-normalize - load via postcss
+
+// TODO: add https://github.com/ben-eb/postcss-normalize-url
+// TODO: add https://github.com/TrySound/postcss-normalize-charset
+
 // TODO: fix stylus sourcemaps
 
 // TODO: ??? add iconfont template as npm package
