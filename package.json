@@ -76,6 +76,7 @@
     "posthtml-lorem": "^1.0.0",
     "poststylus": "^0.2.3",
     "require-dir": "^0.3.0",
+    "rimraf": "^2.5.2",
     "rucksack-css": "^0.8.6",
     "run-sequence": "^1.2.1",
     "rupture": "^0.6.1",
