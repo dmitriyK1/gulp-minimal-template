@@ -21,5 +21,14 @@ $(() => {
 	svg4everybody();
 });
 
+// eslint-disable-next-line no-unused-vars
+var a = 777;
+
+/* eslint-disable */
+
 /* @ngInject */
-function testNgAnnotate($log) {}
+function testNgAnnotate( $log ) {
+  $log.log('module loaded');
+}
+
+/* eslint-enable */

@@ -3,7 +3,7 @@
 @import  'mixins/**/*'
 
 // stylus-type-utils setting
-base-font-size = 75%
+base-font-size = 75%    // @stylint ignore
 
 $html-background = #CCC
 $test-background = #FFF
@@ -27,11 +27,13 @@ body
 
     // stylus-type-utils feature
     font-size px(30)
-    lost-center 980px
+    lost-center 980px    // @stylint ignore
 
 .el
+    // @stylint off
     lost-waffle 1/2
     lost-utility edit
+    // @stylint on
     outline 1px red solid
 
     &:hover
