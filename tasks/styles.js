@@ -23,7 +23,7 @@ gulp.task( 'styles', () =>
                     , 'postcss-fakeid'
                     , 'rucksack-css'
                     , 'postcss-position'
-                    , 'postcss-normalize'
+                    // , 'postcss-normalize'
                     , 'stylehacks'
                     , 'postcss-unprefix'
                     , 'postcss-flexboxfixer'

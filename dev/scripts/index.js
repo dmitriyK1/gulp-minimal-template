@@ -21,7 +21,7 @@ $(() => {
 	svg4everybody();
 });
 
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line
 var a = 777;
 
 /* eslint-disable */
