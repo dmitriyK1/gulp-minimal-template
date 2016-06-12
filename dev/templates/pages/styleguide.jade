@@ -1,0 +1,55 @@
+extends ../layouts/default
+
+block prepend head
+	- var pageTitle       = 'Styleguide'
+	- var pageDescription = ''
+	- var pageKeywords    = ''
+
+append scripts
+	+script(['js/index.js?rev=@@hash'])
+
+append content
+	.content
+
+		#some-id postcss-fakeid test
+
+		+b.H1 bemtojade test:
+		+b.UL.todoList
+			+e.LI.itemElement.--important_value
+				| this is a first todo item
+
+		.content__ttl Iconfont Example
+		.tw
+
+		.content__ttl Sprite Example
+		.sprite
+
+		.content__ttl Grid Example
+		.grid
+			.grid__col 1
+			.grid__col 2
+			.grid__col 3
+
+		.container
+			div.el(tabindex=1) 1
+			div.el(tabindex=2) 2
+			div.el(tabindex=3) 3
+			div.el(tabindex=4) 4
+
+		h1 Lorem posthtml test:
+		p(lorem="3")
+		section
+				lorem(size="3")
+
+		.triangle
+
+		.ellipsis Testing overflow ellipsis
+
+		h3.responsive This header is fully responsive text via font-size: responsive ( rucksack-css feature )
+
+		h1 #[span hello] #[span world]
+
+		img(src="http://www.planwallpaper.com/static/images/magic-of-blue-universe-images.jpg")
+
+		h1 postcss-cssnext all: initial test
+		a(href="#") Link

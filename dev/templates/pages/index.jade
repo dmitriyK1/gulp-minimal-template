@@ -1,12 +1,12 @@
 extends ../layouts/default
 
-block prepend head
-	- var pageTitle       = 'Template'
-	- var pageDescription = ''
-	- var pageKeywords    = ''
+block head
+	- pageTitle = 'Template';
+	- pageDescription = '';
+	- pageKeywords = '';
 
-append scripts
+block scripts
 	+script(['js/index.js?rev=@@hash'])
 
-append content
+block content
 	include ../blocks/main
